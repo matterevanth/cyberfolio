@@ -13,7 +13,8 @@ export default function ContactSection() {
 
   return (
     <div className="mt-4 mb-6"> {/* Adjusted margins */}
-      <div className="flex flex-wrap justify-center items-center gap-2"> {/* Centered items for contact page */}
+      {/* Changed justify-start to justify-center for contact page */}
+      <div className="flex flex-wrap justify-center items-center gap-2">
          {/* Apply terminal button style */}
          <Button asChild variant="outline" size="sm" className="button-terminal text-xs px-3 py-1 h-auto">
             <a href={`mailto:${contact.email}`} target="_blank" rel="noopener noreferrer">
