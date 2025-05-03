@@ -48,7 +48,8 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               <div
                 className={cn(
                   "relative animate-in fade-in duration-500 ease-out",
-                  index % 2 === 0 ? "md:ml-[55%] md:pl-6" : "md:mr-[55%] md:pr-6 md:text-right", // Alternate sides on medium+ screens
+                  // Updated alignment logic: First item (index 0) on left, second (index 1) on right, etc.
+                  index % 2 === 0 ? "md:mr-[55%] md:pr-6 md:text-right" : "md:ml-[55%] md:pl-6",
                   "ml-8 md:ml-0" // Default margin for small screens
                 )}
                  style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'backwards' }}

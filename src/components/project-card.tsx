@@ -2,7 +2,7 @@ import Image from 'next/image';
 // Removed unused Card imports
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Github, ExternalLink, CalendarDays, ChevronRight } from 'lucide-react'; // Added CalendarDays and ChevronRight
+import { Github, ExternalLink, CalendarDays } from 'lucide-react'; // Removed ChevronRight
 import Link from 'next/link';
 import type { Project } from '@/services/linkedin'; // Import Project type
 import {
@@ -24,6 +24,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   const hasBulletPoints = descriptionPoints && descriptionPoints.length > 0 && project.description?.includes('•');
   const accordionValue = `project-item-${index}`; // Unique value for each accordion item
 
+  const hasDescription = project.description && (hasBulletPoints || project.description.trim().length > 0);
+
   return (
     // Terminal card style: remove rounding, shadow; add border; add transition
     <div className="flex flex-col overflow-hidden bg-card border border-border/50 shadow-none rounded-none transition-all duration-300 ease-out hover:border-primary/50 hover:shadow-md hover:shadow-primary/10">
@@ -32,8 +34,9 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
          <Image
            src={project.imageUrl}
            alt={`${project.title} screenshot`}
-           layout="fill"
-           objectFit="cover"
+           fill // Use fill instead of layout
+           style={{ objectFit: 'cover' }} // Use style for objectFit
+           sizes="(max-width: 640px) 100vw, 50vw" // Provide sizes prop for responsive images
            data-ai-hint={project.aiHint || "project technology dark"}
            className="opacity-80 transition-transform duration-300 ease-out group-hover:scale-105 group-hover:opacity-100" // Scale and brighten on hover
          />
@@ -43,23 +46,20 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         <AccordionItem value={accordionValue} className="border-none p-0">
             {/* Card Header as Accordion Trigger */}
             <AccordionTrigger
-                disabled={!project.description} // Disable trigger if no description
+                disabled={!hasDescription} // Disable trigger if no description
                 className={cn(
                 "group flex w-full flex-col items-start text-left p-3 pb-2",
                 // Remove default hover effect, apply custom on hover/focus
                 "hover:no-underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/50 rounded-sm",
-                // Remove default padding and chevron
+                // Remove default padding and HIDE the default chevron icon
                  "py-0 [&>svg]:hidden",
                  // Add cursor pointer only if there's content to show
-                project.description ? "cursor-pointer" : "cursor-default"
+                 hasDescription ? "cursor-pointer" : "cursor-default"
             )}>
-                 {/* Title with Chevron */}
+                 {/* Title */}
                 <div className="flex items-center w-full justify-between transition-colors duration-200 group-hover:text-primary/80">
                     <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-200 mb-1 mr-2">{project.title}</h3>
-                    {/* Chevron Icon for Accordion */}
-                    {project.description && (
-                        <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-90 flex-shrink-0 group-hover:text-primary/80" />
-                    )}
+                    {/* Removed custom ChevronRight icon here */}
                 </div>
                 {/* Date */}
                 {project.date && (
@@ -82,7 +82,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </AccordionTrigger>
 
            {/* Accordion Content for Description */}
-           {project.description && (
+           {hasDescription && (
                <AccordionContent className="pb-2 px-3 text-xs text-foreground/80 leading-normal pt-1 pl-7"> {/* Indent content slightly */}
                  {hasBulletPoints ? (
                    // Terminal list style: '>' prefix, muted foreground

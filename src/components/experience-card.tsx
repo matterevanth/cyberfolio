@@ -1,7 +1,9 @@
+'use client'; // Add this directive
+
+import * as React from 'react';
 import type { Experience } from '@/services/linkedin';
-import { CalendarDays, Building, Zap } from 'lucide-react'; // Removed ChevronRight
+import { CalendarDays, Building, Zap, ChevronDown, ChevronUp } from 'lucide-react'; // Added Chevrons
 import { Badge } from "@/components/ui/badge";
-// Removed Accordion imports
 import { cn } from '@/lib/utils';
 
 interface ExperienceCardProps {
@@ -10,6 +12,8 @@ interface ExperienceCardProps {
 }
 
 export default function ExperienceCard({ experience, align }: ExperienceCardProps) {
+  const [isExpanded, setIsExpanded] = React.useState(false); // State for description visibility
+
   const formatDate = (dateString?: string): string => {
     if (!dateString || dateString.toLowerCase() === 'present') return 'Present';
     try {
@@ -36,44 +40,90 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
   const descriptionPoints = experience.description?.split(/\n?•\s?/).map(line => line.trim()).filter(line => line);
   const hasBulletPoints = descriptionPoints && descriptionPoints.length > 0 && experience.description?.includes('•');
 
+  const hasDescription = experience.description && (hasBulletPoints || experience.description.trim().length > 0);
+
   return (
     // Card styling based on the image: dark background, subtle border
-    <div className={cn(
-        "bg-card border border-border/30 shadow-md rounded-md p-4 transition-all duration-300 hover:shadow-primary/20 hover:border-primary/50",
-        align === 'right' ? 'md:text-right' : 'md:text-left' // Adjust text alignment for alternating layout
-    )}>
-      {/* Date: Accent color */}
-      <div className={cn(
-          "flex items-center text-xs text-accent mb-1",
-          align === 'right' ? 'md:justify-end' : 'md:justify-start'
-      )}>
-        <CalendarDays className="mr-1.5 h-3 w-3 flex-shrink-0" />
-        <span className="whitespace-nowrap">{startDateFormatted} &ndash; {endDateFormatted}</span>
-      </div>
-
-       {/* Title: Foreground color */}
-       <h3 className="text-base font-semibold text-foreground mb-1">{experience.title}</h3>
-
-       {/* Company: Primary color (yellowish in image, using primary theme color) */}
-       <div className={cn(
-           "flex items-center gap-1.5 text-sm text-primary mb-3",
-           align === 'right' ? 'md:justify-end' : 'md:justify-start'
-       )}>
-          <Building className="h-3.5 w-3.5" />
-          <span>{experience.company}</span>
-       </div>
-
-       {/* Description */}
-       {experience.description && (
+    // Added cursor-pointer if description exists, adjust padding based on expansion
+    <div
+      className={cn(
+        "bg-card border border-border/30 shadow-md rounded-md transition-all duration-300 hover:shadow-primary/20 hover:border-primary/50",
+        "p-4", // Base padding
+        hasDescription && "cursor-pointer" // Add pointer cursor if expandable
+      )}
+      onClick={hasDescription ? () => setIsExpanded(!isExpanded) : undefined} // Toggle on click if description exists
+      role={hasDescription ? "button" : undefined}
+      tabIndex={hasDescription ? 0 : undefined}
+      aria-expanded={hasDescription ? isExpanded : undefined}
+    >
+        {/* Header Part (Always Visible) */}
+        <div className={cn(
+             "flex flex-col",
+             // Align header content based on the align prop
+             align === 'right' ? 'md:items-end' : 'md:items-start'
+        )}>
+            {/* Date: Accent color */}
             <div className={cn(
-                "text-sm text-muted-foreground leading-relaxed space-y-1.5",
-                align === 'right' ? 'md:text-right' : 'md:text-left' // Ensure description text aligns
+                "flex items-center text-xs text-accent mb-1",
+                // Align date based on the align prop
+                 align === 'right' ? 'md:justify-end' : 'md:justify-start'
+            )}>
+                <CalendarDays className="mr-1.5 h-3 w-3 flex-shrink-0" />
+                <span className="whitespace-nowrap">{startDateFormatted} &ndash; {endDateFormatted}</span>
+            </div>
+
+            {/* Title and Company Container */}
+            <div className={cn(
+                "flex flex-col mb-2", // Add bottom margin
+                // Align title/company based on the align prop
+                align === 'right' ? 'md:items-end' : 'md:items-start'
+            )}>
+                {/* Title: Foreground color */}
+                <h3 className="text-base font-semibold text-foreground">{experience.title}</h3>
+                 {/* Company: Primary color */}
+                 <div className={cn(
+                     "flex items-center gap-1.5 text-sm text-primary",
+                      // Align company based on the align prop
+                     align === 'right' ? 'md:justify-end' : 'md:justify-start'
+                 )}>
+                    <Building className="h-3.5 w-3.5" />
+                    <span>{experience.company}</span>
+                 </div>
+            </div>
+
+            {/* Chevron indicator if description exists */}
+            {hasDescription && (
+                <div className={cn(
+                     "flex items-center text-muted-foreground mt-1",
+                     // Align chevron based on the align prop
+                      align === 'right' ? 'md:justify-end' : 'md:justify-start'
+                 )}>
+                    {isExpanded ? <ChevronUp className="h-4 w-4 mr-1" /> : <ChevronDown className="h-4 w-4 mr-1" />}
+                    <span className="text-xs">{isExpanded ? 'Hide Details' : 'Show Details'}</span>
+                </div>
+            )}
+        </div>
+
+       {/* Description (Conditionally Rendered) */}
+       {hasDescription && isExpanded && (
+            <div className={cn(
+                "text-sm text-muted-foreground leading-relaxed space-y-1.5 mt-3 pt-3 border-t border-border/30", // Added top border/padding when expanded
+                // Align description text based on the align prop
+                 align === 'right' ? 'md:text-right' : 'md:text-left'
             )}>
               {hasBulletPoints ? (
                  // Terminal list style: '>' prefix, muted foreground
-                <ul className={cn("list-none space-y-1.5 pl-0", align === 'right' ? 'md:pr-4' : 'md:pl-4')}>
+                <ul className={cn(
+                    "list-none space-y-1.5 pl-0",
+                    // Align list items based on the align prop
+                    align === 'right' ? 'md:pr-4' : 'md:pl-4'
+                )}>
                    {descriptionPoints.map((point, pointIndex) => (
-                    <li key={pointIndex} className={cn("flex items-start", align === 'right' ? 'md:justify-end md:flex-row-reverse' : '')}>
+                    <li key={pointIndex} className={cn(
+                        "flex items-start",
+                        // Align bullet points based on the align prop
+                         align === 'right' ? 'md:justify-end md:flex-row-reverse' : ''
+                         )}>
                       <span className={cn("text-accent/80", align === 'right' ? 'ml-1.5' : 'mr-1.5')}>•</span> {/* Use bullet point */}
                       <span>{point}</span>
                     </li>
@@ -86,10 +136,11 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
              </div>
           )}
 
-        {/* Skills (Optional: If we want to show them below description) */}
-        {experience.skills && experience.skills.length > 0 && (
+        {/* Skills (Optional: If we want to show them below description, only when expanded) */}
+        {experience.skills && experience.skills.length > 0 && isExpanded && (
           <div className={cn(
               "flex flex-wrap gap-1 items-center text-xs text-muted-foreground pt-3 mt-3 border-t border-border/30",
+               // Align skills based on the align prop
               align === 'right' ? 'md:justify-end' : 'md:justify-start'
               )}>
              <Zap className="h-3 w-3 mr-1 text-primary/80" /> {/* Skills Icon */}

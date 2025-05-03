@@ -67,9 +67,9 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
              <span className="text-primary mr-2 font-mono">$</span> {/* Command prompt style */}
              About_Me:
             </h2>
-           {/* Use TypingEffect for the about text */}
+           {/* Use TypingEffect for the about text - Added space */}
            <TypingEffect
-              text={profile.about || "Cybersecurity professional and Software Engineer."}
+              text={profile.about || "passionate cybersecurity professional and Software Engineer."} // Removed leading 'A '
               className="text-sm text-muted-foreground leading-relaxed pl-4" // Indent text
               cursorClassName="text-primary" // Style the cursor
               speed={15} // Slightly faster typing
