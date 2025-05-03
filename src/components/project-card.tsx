@@ -2,18 +2,9 @@ import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Github, ExternalLink } from 'lucide-react';
+import { Github, ExternalLink, CalendarDays } from 'lucide-react'; // Added CalendarDays
 import Link from 'next/link';
-
-interface Project {
-  title: string;
-  description: string;
-  imageUrl: string;
-  liveUrl?: string | null;
-  githubUrl?: string | null;
-  tags?: string[];
-  aiHint?: string;
-}
+import type { Project } from '@/services/linkedin'; // Import Project type
 
 interface ProjectCardProps {
   project: Project;
@@ -37,7 +28,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       {/* Card Header: Reduced padding */}
       <div className="pb-2 pt-3 px-3">
         {/* Title: Foreground color, slightly smaller */}
-        <h3 className="text-base font-semibold text-foreground mb-1.5">{project.title}</h3>
+        <h3 className="text-base font-semibold text-foreground mb-1">{project.title}</h3>
+        {/* Date: Muted foreground, smaller */}
+        {project.date && (
+             <div className="flex items-center text-xs text-muted-foreground mb-1.5">
+                <CalendarDays className="mr-1.5 h-3 w-3" />
+                <span>{project.date}</span>
+            </div>
+        )}
          {project.tags && project.tags.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {project.tags.map((tag, index) => (
@@ -75,3 +73,5 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     </div>
   );
 }
+
+    

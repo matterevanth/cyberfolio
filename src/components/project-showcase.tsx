@@ -1,48 +1,44 @@
 import ProjectCard from './project-card';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, FolderGit2 } from 'lucide-react';
+import type { Project } from '@/services/linkedin'; // Import Project type
 
-// Placeholder project data - replace/refine with Revanth Matte's actual projects, derived from resume context
-const projects = [
-  {
-    title: "Vulnerability Scanner Automation",
-    description: "Developed Python scripts to automate the validation of common OWASP vulnerabilities (e.g., SQLi, XSS) identified by scanners like Nessus and OWASP ZAP, streamlining the verification process and reducing manual effort.",
-    imageUrl: "https://picsum.photos/seed/vuln-scanner/600/400",
-    liveUrl: null, // Typically no live demo for internal tools
-    githubUrl: null, // Assume private repo or conceptual project
-    tags: ["Python", "Automation", "Security Testing", "OWASP", "Scripting"],
-    aiHint: "python code terminal security dark theme"
-  },
-  {
-    title: "Secure API Development Guide",
-    description: "Collaborated on defining secure coding baselines and contributed to documentation outlining best practices for developing secure REST APIs, focusing on authentication, authorization, and input validation.",
-    imageUrl: "https://picsum.photos/seed/api-guide/600/400",
-    liveUrl: null,
-    githubUrl: null, // Likely internal documentation
-    tags: ["API Security", "Secure Coding", "Documentation", "REST", "Best Practices"],
-     aiHint: "documentation website api security dark mode"
-  },
-  {
-    title: "Portfolio Website (This Site)",
-    description: "Personal portfolio website built with Next.js, Tailwind CSS, and ShadCN UI to showcase skills, experience, and projects in software development and cybersecurity.",
-    imageUrl: "https://picsum.photos/seed/portfolio-site/600/400",
-    liveUrl: "#", // Replace with actual URL if deployed
-    githubUrl: "https://github.com/revanthmatte/portfolio", // Replace if needed
-    tags: ["Next.js", "React", "Tailwind CSS", "ShadCN UI", "TypeScript", "Portfolio"],
-    aiHint: "website portfolio dark theme browser screenshot"
-  },
-   {
-    title: "Network Traffic Anomaly Detection",
-    description: "Utilized Snort IDS and Wireshark during an internship to monitor network traffic, analyze logs, and identify potential application-layer attacks or anomalies, contributing to threat detection efforts.",
-    imageUrl: "https://picsum.photos/seed/ids-project/600/400",
-    liveUrl: null,
-    githubUrl: null, // Likely internship project/work
-    tags: ["Snort", "Wireshark", "IDS", "Network Security", "Log Analysis", "Threat Detection"],
-    aiHint: "network graph security dashboard dark theme"
-  },
-];
+interface ProjectShowcaseProps {
+  projects: Project[]; // Accept projects as props
+}
 
-export default function ProjectShowcase() {
+export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
+  // Sort projects by date, most recent first (assuming YYYY-MM or Month YYYY format)
+  const sortedProjects = projects.sort((a, b) => {
+    const parseProjectDate = (dateStr: string | undefined): Date => {
+        if (!dateStr) return new Date(0); // Oldest date if undefined
+        try {
+            // Handle "Month YYYY" format
+            const ymMatch = dateStr.match(/^(\w+)\s(\d{4})$/);
+            if (ymMatch) {
+                const monthMap: { [key: string]: number } = {
+                    Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+                    Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+                };
+                 const monthIndex = monthMap[ymMatch[1]];
+                 const year = parseInt(ymMatch[2], 10);
+                 if (monthIndex !== undefined && !isNaN(year)) {
+                    return new Date(year, monthIndex, 1); // Use day 1 for comparison
+                 }
+            }
+            // Fallback or handle other formats if needed, default to epoch start on error
+            return new Date(0);
+        } catch {
+            return new Date(0); // Fallback on any parsing error
+        }
+    };
+
+    const dateA = parseProjectDate(a.date);
+    const dateB = parseProjectDate(b.date);
+    return dateB.getTime() - dateA.getTime(); // Most recent first
+});
+
+
   return (
     <div className="space-y-6"> {/* Reduced spacing */}
        <div className="flex items-center gap-2 mb-4"> {/* Reduced spacing */}
@@ -51,9 +47,13 @@ export default function ProjectShowcase() {
       </div>
       {/* Terminal grid style: reduced gap */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {projects.map((project, index) => (
-          <ProjectCard key={index} project={project} />
-        ))}
+        {sortedProjects.length > 0 ? (
+             sortedProjects.map((project, index) => (
+              <ProjectCard key={index} project={project} />
+            ))
+        ) : (
+             <p className="text-muted-foreground text-sm col-span-1 sm:col-span-2">// Project details loading or none available.</p>
+        )}
       </div>
        {/* Terminal style text */}
        <p className="text-xs text-muted-foreground text-center mt-4">
@@ -62,3 +62,5 @@ export default function ProjectShowcase() {
     </div>
   );
 }
+
+    

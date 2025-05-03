@@ -11,6 +11,10 @@ export interface LinkedInProfile {
    */
   headline: string;
   /**
+   * Areas of expertise.
+   */
+  expertise: string[];
+  /**
    * The profile picture URL of the person.
    */
   profilePictureUrl: string;
@@ -30,6 +34,14 @@ export interface LinkedInProfile {
   * The structured skills of the person.
   */
   skills: Skills;
+   /**
+   * The list of certifications of the person.
+   */
+  certifications: Certification[];
+   /**
+   * The list of projects.
+   */
+   projects: Project[];
 }
 
 /**
@@ -104,14 +116,55 @@ export interface Skills {
   Programming: string[];
 }
 
+/**
+* Represents a certification.
+*/
+export interface Certification {
+    /**
+    * The name of the certification.
+    */
+    name: string;
+    /**
+    * The issuing organization.
+    */
+    organization: string;
+    /**
+     * Optional: URL to the certification badge/verification.
+     */
+    url?: string;
+}
+
+/**
+ * Represents a project.
+ */
+export interface Project {
+  title: string;
+  description: string;
+  imageUrl: string;
+  liveUrl?: string | null;
+  githubUrl?: string | null;
+  tags?: string[];
+  date?: string; // e.g., "Mar 2024"
+  aiHint?: string;
+}
+
 
 // Helper function to parse date string like "Month YYYY" or "Present" to "YYYY-MM" or "Present"
 const parseExperienceDate = (dateString: string): string => {
-  if (dateString.toLowerCase() === 'present') {
+  if (!dateString || dateString.toLowerCase() === 'present') {
     return 'Present';
   }
   try {
-    const [month, year] = dateString.split(' ');
+    // Check if already in YYYY-MM format
+    if (/^\d{4}-\d{2}$/.test(dateString)) {
+        return dateString;
+    }
+
+    const parts = dateString.split(' ');
+    if (parts.length !== 2) {
+        throw new Error(`Unexpected date format parts: ${dateString}`);
+    }
+    const [month, year] = parts;
     // Simple mapping for month names to numbers
     const monthMap: { [key: string]: number } = {
       Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6,
@@ -119,16 +172,12 @@ const parseExperienceDate = (dateString: string): string => {
     };
     const monthNumber = monthMap[month];
     if (!monthNumber || !year || !/^\d{4}$/.test(year)) {
-         throw new Error(`Invalid date format: ${dateString}`);
+         throw new Error(`Invalid month or year in date: ${dateString}`);
     }
     return `${year}-${monthNumber.toString().padStart(2, '0')}`;
   } catch (e) {
-    console.warn(`Could not parse date: ${dateString}. Error: ${e}`);
-    // Try parsing YYYY-MM directly
-    if (/^\d{4}-\d{2}$/.test(dateString)) {
-      return dateString;
-    }
-    return dateString; // Return original if parsing fails completely
+    console.warn(`Could not parse date: ${dateString}. Error: ${e}. Returning original.`);
+    return dateString; // Return original if parsing fails
   }
 };
 
@@ -148,17 +197,25 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Cybersecurity Professional & Penetration Tester', // Updated Headline
+    headline: 'Cybersecurity Professional and Penetration Tester', // Updated Headline
+    expertise: [ // Added expertise
+        "Web Application Security",
+        "Penetration Testing",
+        "Source Code Review",
+        "Vulnerability Analysis",
+        "Threat Hunting",
+    ],
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities.',
+    // Grammar checked, expertise keywords woven in where appropriate without changing core meaning.
+    about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners, enabling thorough vulnerability analysis and threat hunting. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities, including web application security and source code review.',
     experiences: [
        {
         title: 'Application Security Analyst',
         company: 'Dream Studio',
         startDate: parseExperienceDate('Sep 2024'),
         endDate: parseExperienceDate('Present'),
-        skills: ['Python', 'Flask', 'Git', 'OWASP ZAP'],
-        location: 'Remote', // Included as per resume but will be omitted in display if needed
+        skills: ['Python', 'Flask', 'Git', 'OWASP ZAP', 'API Security', 'Code Review'],
+        location: 'Remote',
         description: '• Discovered and addressed 20+ OWASP Top 10 issues by performing security assessments & reviewing Python/JavaScript codebases.\n• Identified insecure TLS configurations and misused security headers (e.g., missing CSP, HSTS, X-Frame-Options) during endpoint reviews, recommending hardening steps for improved transport security.\n• Delivered in-depth API testing using Burp Suite and tailored test cases to expose authentication gaps, logic errors, and insecure endpoints.\n• Collaborated with developers to integrate security into CI/CD workflows, embedding secure coding practices and enhancing code review processes.',
       },
       {
@@ -166,7 +223,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         company: 'Tata Consultancy Services',
         startDate: parseExperienceDate('Jan 2022'),
         endDate: parseExperienceDate('Jun 2022'),
-        skills: ['Nessus', 'SonarQube', 'Semgrep'],
+        skills: ['Nessus', 'SonarQube', 'Semgrep', 'Vulnerability Assessment', 'Penetration Testing', 'Python'],
         location: 'Remote',
         description: '• Conducted vulnerability assessments and penetration testing across web apps and cloud infrastructure, identifying and triaging over 500 vulnerabilities and reducing overall threat exposure by 70%.\n• Performed manual and automated code reviews on APIs and web apps using SonarQube and Semgrep, uncovering insecure coding patterns, injection flaws, and auth misconfigurations before production release.\n• Automated validation of common OWASP vulnerabilities using Python scripts, improving consistency in testing workflows and enabling faster identification of critical security gaps.\n• Partnered with AppSec and cloud security teams to define secure coding baselines, optimize Nessus scan performance, and contribute to cross-functional security policy development.',
       },
@@ -175,7 +232,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         company: 'Indian Servers',
         startDate: parseExperienceDate('Aug 2021'),
         endDate: parseExperienceDate('Dec 2021'),
-        skills: ['Kali Linux', 'Burp Suite', 'OWASP', 'Penetration Testing'],
+        skills: ['Kali Linux', 'Burp Suite', 'OWASP', 'Penetration Testing', 'SQLmap'],
         location: 'Remote',
         description: '• Found security flaws in 10+ web applications using OWASP Top 10 methodology and tools such as Burp Suite and sqlmap.\n• Reported issues including authentication bypass, IDOR, and injection vulnerabilities, providing detailed proof-of-concept documentation.\n• Supported developers during remediation efforts by validating fixes and aligning with secure coding practices.',
       },
@@ -184,7 +241,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         company: 'The Sparks Foundation',
         startDate: parseExperienceDate('Aug 2021'),
         endDate: parseExperienceDate('Sep 2021'),
-         skills: ['SIEM', 'Snort IDS', 'Wireshark'],
+         skills: ['SIEM', 'Snort IDS', 'Wireshark', 'Log Analysis', 'Threat Detection'],
         location: 'Remote',
         description: '• Monitored web and network traffic to detect application-layer anomalies using Snort IDS and log analysis.\n• Investigated false positives and correlated alerts to improve accuracy in identifying web-based attack patterns.\n• Contributed to internal threat intel updates focused on emerging application threats and detection signatures.',
       },
@@ -193,7 +250,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         company: 'Verzeo',
         startDate: parseExperienceDate('Jan 2021'),
         endDate: parseExperienceDate('Mar 2021'),
-        skills: ['OpenVAS', 'Nmap', 'API Security'], // Corrected typo from OpenVASNmap
+        skills: ['OpenVAS', 'Nmap', 'API Security', 'Burp Suite', 'Vulnerability Scanning'], // Corrected OpenVASNmap
         location: 'Remote',
         description: '• Performed reconnaissance and vulnerability scans to map exposed services and weak configurations in web-facing systems.\n• Tested REST APIs for injection flaws and access control issues using Burp Suite Intruder and custom fuzzing payloads.\n• Documented vulnerabilities with CVSS-based risk ratings and remediation guidance tailored to application-layer risks.',
       },
@@ -204,14 +261,14 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         degree: "Master of Engineering in Cybersecurity",
         startDate: '2022-08',
         endDate: '2024-05',
-        // description removed as requested
+        // description removed
       },
       {
         school: 'SRM University',
         degree: "Bachelor of Technology, Computer Science",
         startDate: '2018-07',
         endDate: '2022-05',
-         // description removed as requested
+         // description removed
       },
     ],
     skills: {
@@ -219,6 +276,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
             "Tenable Nessus", "Burp Suite", "Splunk", "Wireshark", "Nmap", "Veracode",
             "OpenVAS", "Mimikatz", "VirusTotal", "Shodan", "SQLmap", "Acunetix", "Nikto", "Office 365"
         ],
+        // Renamed for clarity
         Frameworks: [
             "OWASP Top 10", "CWE", "CVSS", "MITRE ATT&CK", "NIST CSF", "CIS Benchmarks",
             "PCI-DSS", "HIPAA", "ISO 27001"
@@ -227,6 +285,48 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         Cloud: ["AWS (IAM, S3, EC2, GuardDuty)", "ScoutSuite", "GCP"],
         OperatingSystems: ["Kali Linux", "Ubuntu", "Parrot OS", "Windows"],
         Programming: ["Python", "Bash", "PowerShell", "SQL", "C"]
-    }
+    },
+    certifications: [ // Added Certifications
+        { name: "Certified Ethical Hacker (CEH)", organization: "EC-Council" },
+        { name: "Malware Analysis & Reverse Engineering (MCRTA)", organization: "CyberWarfare Labs" },
+        { name: "eLearnSecurity Junior Penetration Tester (eJPT)", organization: "INE" },
+        { name: "Practical Ethical Hacking (PEH)", organization: "TCM Security" },
+    ],
+    projects: [ // Moved Projects here
+        {
+            title: "MaskedDJ Penetration Testing",
+            description: "Assessed the security posture of MaskedDJ’s hybrid environment, identifying critical risks including S3 bucket misconfigurations and local privilege escalation vulnerabilities. Exploited an unpatched Windows 7 system to gain domain access and extract sensitive credentials stored in KeePass, exposing insecure credential management. Recommended technical controls including IAM hardening, patch policy enforcement, and Active Directory logging enhancements to mitigate identified risks.",
+            imageUrl: "https://picsum.photos/seed/masked-dj-pentest/600/400",
+            date: "Mar 2024",
+            tags: ["Penetration Testing", "Vulnerability Assessment", "AWS S3", "Active Directory", "Privilege Escalation"],
+            aiHint: "security penetration testing report dark theme"
+        },
+        {
+            title: "Securing a Cloud-based Healthcare Application",
+            description: "Strengthened IAM policies and access controls, reducing excessive permissions by 40% and mitigating vulnerabilities. Implemented robust encryption protocols for databases and file storage, achieving compliance and reducing data vulnerability by 70%. Elevated logging and monitoring capabilities, reducing incident response time by 25%.",
+            imageUrl: "https://picsum.photos/seed/healthcare-sec/600/400",
+            date: "Nov 2023",
+            tags: ["AWS Security", "IAM", "S3", "Encryption", "Cloud Security", "Healthcare"],
+            aiHint: "cloud security dashboard healthcare dark mode"
+        },
+        {
+            title: "Security Workflow Automation",
+            description: "Wrote Python scripts to detect OWASP issues like reflected XSS, missing headers, and insecure cookies. Integrated checks into CI/CD pipelines, reducing triage time and false positives. Enabled repeatable validation of controls across staging environments.",
+            imageUrl: "https://picsum.photos/seed/sec-automation/600/400",
+            date: "May 2023",
+            tags: ["Python", "Automation", "CI/CD", "OWASP", "Security Testing", "Scripting"],
+            aiHint: "python script code terminal automation dark theme"
+        },
+        {
+            title: "Lab Rats Medicare Network: Fortifying Security Systems",
+            description: "Enforced Multi-Factor Authentication (MFA) for users. Deployed state-of-the-art Intrusion Detection Systems (IDS) and reinforced firewalls, achieving a 60% reduction in successful cyber attacks. Augmented with security software like Carbon Black for endpoint detection and Ivanti for application control.",
+            imageUrl: "https://picsum.photos/seed/lab-rats-sec/600/400",
+            date: "Apr 2023",
+            tags: ["Infrastructure Security", "MFA", "IDS", "Firewall", "Endpoint Security", "Vulnerability Assessment"],
+            aiHint: "network security diagram infrastructure dark theme"
+        },
+    ],
   };
 }
+
+    

@@ -4,8 +4,9 @@ import ProfileCard from '@/components/profile-card';
 import ExperienceSection from '@/components/experience-section';
 import EducationSection from '@/components/education-section';
 import ProjectShowcase from '@/components/project-showcase';
-import SkillsSection from '@/components/skills-section'; // Import SkillsSection
+import SkillsSection from '@/components/skills-section';
 import ContactSection from '@/components/contact-section';
+import CertificationsSection from '@/components/certifications-section'; // Import CertificationsSection
 import { Separator } from '@/components/ui/separator';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
@@ -28,13 +29,16 @@ export default async function Home() {
     profile = {
       fullName: 'Revanth Matte',
       headline: 'Software Engineer | Cybersecurity',
+      expertise: [], // Add fallback
       profilePictureUrl: 'https://picsum.photos/seed/revanth-error/200/200',
       about: '// Error loading profile information.',
       experiences: [],
       educations: [],
       skills: { // Add fallback skills object
         Tools: [], Frameworks: [], CodeAnalysis: [], Cloud: [], OperatingSystems: [], Programming: []
-      }
+      },
+      certifications: [], // Add fallback
+      projects: [], // Add fallback
     };
   }
 
@@ -71,7 +75,9 @@ export default async function Home() {
           {/* Separator: Muted border */}
           <Separator className="bg-border/50" />
 
-          {/* Skills Section */}
+           {/* Expertise Section (Integrated within ProfileCard now) */}
+
+           {/* Skills Section */}
           <section id="skills">
              {/* Ensure displayProfile.skills is passed */}
             <SkillsSection skills={displayProfile.skills} />
@@ -91,7 +97,8 @@ export default async function Home() {
 
           {/* Project Showcase Section */}
           <section id="projects">
-            <ProjectShowcase />
+             {/* Pass projects from profile data */}
+             <ProjectShowcase projects={displayProfile.projects} />
           </section>
 
           {/* Separator: Muted border */}
@@ -103,9 +110,21 @@ export default async function Home() {
             <EducationSection educations={displayProfile.educations} />
            </section>
 
+           {/* Separator: Muted border */}
+           <Separator className="bg-border/50" />
+
+            {/* Certifications Section */}
+           <section id="certifications">
+             {/* Ensure displayProfile.certifications is passed */}
+            <CertificationsSection certifications={displayProfile.certifications} />
+           </section>
+
+
         </div>
       </main>
       <Footer />
     </div>
   );
 }
+
+    

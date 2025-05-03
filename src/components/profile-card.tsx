@@ -2,8 +2,12 @@ import type { LinkedInProfile } from '@/services/linkedin';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from 'next/image';
-import { Separator } from '../ui/separator'; // Added Separator
+import { Separator } from '@/components/ui/separator'; // Added Separator
 import TypingEffect from './typing-effect'; // Import TypingEffect
+import { Badge } from '@/components/ui/badge'; // Import Badge for expertise - FIXED PATH
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import Tooltip
+import { Star } from 'lucide-react'; // Icon for expertise
+
 
 interface ProfileCardProps {
   profile: LinkedInProfile;
@@ -36,6 +40,19 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
             {/* Use foreground for name, primary for headline */}
             <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">{profile.fullName}</h1>
             <p className="text-base md:text-lg text-primary font-medium">{profile.headline}</p>
+
+            {/* Expertise Section */}
+            {profile.expertise && profile.expertise.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                 <Star className="h-3.5 w-3.5 text-primary/80 mr-0.5" /> {/* Expertise Icon */}
+                {profile.expertise.map((item, index) => (
+                  // Terminal badge style for expertise
+                  <Badge key={index} variant="secondary" className="badge-terminal-secondary text-xs px-2 py-0.5">
+                    {item}
+                  </Badge>
+                ))}
+              </div>
+            )}
          </div>
       </div>
 
@@ -53,3 +70,5 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
     </div>
   );
 }
+
+    
