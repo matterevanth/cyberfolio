@@ -64,9 +64,8 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
         )}>
             {/* Date: Accent color */}
             <div className={cn(
-                "flex items-center text-xs text-accent mb-1",
-                // Align date based on the align prop
-                 align === 'right' ? 'md:justify-end' : 'md:justify-start'
+                "flex items-center text-xs text-accent mb-1"
+                // Justification handled by parent div alignment
             )}>
                 <CalendarDays className="mr-1.5 h-3 w-3 flex-shrink-0" />
                 <span className="whitespace-nowrap">{startDateFormatted} &ndash; {endDateFormatted}</span>
@@ -74,17 +73,15 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
 
             {/* Title and Company Container */}
             <div className={cn(
-                "flex flex-col mb-2", // Add bottom margin
-                // Align title/company based on the align prop
-                align === 'right' ? 'md:items-end' : 'md:items-start'
+                "flex flex-col mb-2" // Add bottom margin
+                // Alignment handled by parent div alignment
             )}>
                 {/* Title: Foreground color */}
                 <h3 className="text-base font-semibold text-foreground">{experience.title}</h3>
                  {/* Company: Primary color */}
                  <div className={cn(
-                     "flex items-center gap-1.5 text-sm text-primary",
-                      // Align company based on the align prop
-                     align === 'right' ? 'md:justify-end' : 'md:justify-start'
+                     "flex items-center gap-1.5 text-sm text-primary"
+                      // Justification handled by parent div alignment
                  )}>
                     <Building className="h-3.5 w-3.5" />
                     <span>{experience.company}</span>
@@ -94,9 +91,8 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
             {/* Chevron indicator if description exists */}
             {hasDescription && (
                 <div className={cn(
-                     "flex items-center text-muted-foreground mt-1",
-                     // Align chevron based on the align prop
-                      align === 'right' ? 'md:justify-end' : 'md:justify-start'
+                     "flex items-center text-muted-foreground mt-1"
+                     // Justification handled by parent div alignment
                  )}>
                     {isExpanded ? <ChevronUp className="h-4 w-4 mr-1" /> : <ChevronDown className="h-4 w-4 mr-1" />}
                     <span className="text-xs">{isExpanded ? 'Hide Details' : 'Show Details'}</span>
@@ -114,15 +110,15 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
               {hasBulletPoints ? (
                  // Terminal list style: '>' prefix, muted foreground
                 <ul className={cn(
-                    "list-none space-y-1.5 pl-0",
+                    "list-none space-y-1.5", // Removed pl-0 as alignment handles it
                     // Align list items based on the align prop
-                    align === 'right' ? 'md:pr-4' : 'md:pl-4'
+                    align === 'right' ? 'md:pl-0 md:pr-4' : 'md:pr-0 md:pl-4' // Adjust padding for alignment
                 )}>
                    {descriptionPoints.map((point, pointIndex) => (
                     <li key={pointIndex} className={cn(
                         "flex items-start",
                         // Align bullet points based on the align prop
-                         align === 'right' ? 'md:justify-end md:flex-row-reverse' : ''
+                         align === 'right' ? 'md:justify-end md:flex-row-reverse' : 'md:justify-start md:flex-row'
                          )}>
                       <span className={cn("text-accent/80", align === 'right' ? 'ml-1.5' : 'mr-1.5')}>•</span> {/* Use bullet point */}
                       <span>{point}</span>

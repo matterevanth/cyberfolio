@@ -30,22 +30,22 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
 
       {/* Alternating Timeline Layout */}
       <div className="relative flow-root">
-        {/* Vertical Timeline Line */}
-        {/* Adjusted line position slightly to avoid overlap with dots */}
-        <div className="absolute left-1/2 top-2 -ml-px h-[calc(100%-1rem)] w-0.5 bg-border/70" aria-hidden="true"></div>
+        {/* Vertical Timeline Line: Centered using left-1/2 and translate-x-1/2 */}
+        <div className="absolute left-1/2 top-2 -translate-x-1/2 h-[calc(100%-1rem)] w-0.5 bg-border/70" aria-hidden="true"></div>
 
         {sortedExperiences.length > 0 ? (
           sortedExperiences.map((exp, index) => (
-            <div key={index} className="relative mb-12 md:grid md:grid-cols-2 md:items-start md:gap-8"> {/* Use grid for alignment */}
-               {/* Timeline Dot - Positioned relative to the grid column, now centers vertically */}
+            <div key={index} className="relative mb-12 md:grid md:grid-cols-2 md:items-start md:gap-x-8"> {/* Use grid for alignment, added gap-x */}
+               {/* Timeline Dot Container: Positions the dot relative to the grid column */}
                <div className={cn(
-                   "relative md:flex md:items-center md:justify-center", // Use flex for centering on md+
-                   index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'
+                   "absolute top-2.5 left-1/2 -translate-x-1/2 md:relative md:top-auto md:left-auto md:translate-x-0 md:flex md:justify-center", // Center dot on mobile, use grid for desktop
+                   index % 2 === 0 ? 'md:col-start-1 md:flex-row-reverse' : 'md:col-start-2 md:flex-row' // Place dot container in correct column
                 )}>
+                 {/* The actual Dot: Centered on the line */}
                  <span className={cn(
-                    "absolute left-1/2 top-1 -translate-x-1/2 md:relative md:left-auto md:top-auto md:translate-x-0 flex h-4 w-4 items-center justify-center rounded-full border-2 border-primary ring-4 ring-background",
-                    // Align dot to the line on md+ screens, adjust margin for connection
-                    index % 2 === 0 ? 'md:ml-auto md:mr-[-9px]' : 'md:mr-auto md:ml-[-9px]',
+                    "flex h-4 w-4 items-center justify-center rounded-full border-2 border-primary ring-4 ring-background",
+                    // Align dot precisely on the center line for desktop using margin auto
+                    index % 2 === 0 ? 'md:mr-[-8px]' : 'md:ml-[-8px]', // Adjust margin to center 16px dot over 2px line
                      index === 0 ? "bg-primary" : "bg-muted"
                   )} aria-hidden="true">
                      <span className={cn("h-1.5 w-1.5 rounded-full", index === 0 ? "bg-primary-foreground" : "bg-primary")}></span>
@@ -58,21 +58,22 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                   "relative animate-in fade-in duration-500 ease-out",
                    // Determine grid column and row start for md+
                    index % 2 === 0
-                     ? 'md:col-start-1 md:row-start-1'
-                     : 'md:col-start-2 md:row-start-1',
+                     ? 'md:col-start-2 md:row-start-1' // Card on right
+                     : 'md:col-start-1 md:row-start-1', // Card on left
                    // Mobile layout: margin left to clear absolute positioned dot
                    "ml-8 md:ml-0",
-                   // Align card to the correct side of the timeline on md+
-                   index % 2 === 0 ? 'md:mr-4 lg:mr-6' : 'md:ml-4 lg:ml-6'
+                   // Align card text based on side
+                   index % 2 !== 0 ? 'md:text-right' : 'md:text-left'
                 )}
                  style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'backwards' }}
               >
-                <ExperienceCard experience={exp} align={index % 2 === 0 ? 'left' : 'right'} />
+                {/* Pass the correct alignment prop based on the card's position */}
+                <ExperienceCard experience={exp} align={index % 2 !== 0 ? 'right' : 'left'} />
               </div>
             </div>
           ))
         ) : (
-           <div className="pl-4"> {/* Indent fallback message */}
+           <div className="pl-8"> {/* Indent fallback message relative to timeline */}
               <p className="text-muted-foreground text-sm">// Experience information loading...</p>
            </div>
         )}
@@ -80,3 +81,4 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
     </div>
   );
 }
+
