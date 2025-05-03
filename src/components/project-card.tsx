@@ -21,45 +21,46 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Card className="flex flex-col overflow-hidden transition-all hover:scale-[1.02] hover:shadow-xl duration-300 ease-in-out">
-       <div className="relative h-48 w-full">
+    // Use subtle card styles for dark mode, remove hover scale
+    <Card className="flex flex-col overflow-hidden bg-card border border-border/30 shadow-none transition-colors duration-300 hover:bg-muted/30">
+       <div className="relative h-48 w-full group"> {/* Added group class */}
          <Image
            src={project.imageUrl}
            alt={`${project.title} screenshot`}
            layout="fill"
            objectFit="cover"
-           data-ai-hint={project.aiHint || "project technology"}
-           className="transition-opacity duration-300 group-hover:opacity-90"
+           data-ai-hint={project.aiHint || "project technology dark"}
+           className="transition-opacity duration-300 group-hover:opacity-80" // Slightly reduce opacity on hover
          />
-         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+         {/* Removed gradient overlay for a cleaner look */}
        </div>
-      <CardHeader className="pb-3 pt-4">
-        <CardTitle className="text-lg font-semibold">{project.title}</CardTitle>
+      <CardHeader className="pb-3 pt-4 px-4">
+        <CardTitle className="text-lg font-semibold text-foreground">{project.title}</CardTitle>
          {project.tags && project.tags.length > 0 && (
-          <div className="mt-1 flex flex-wrap gap-1">
+          <div className="mt-2 flex flex-wrap gap-1.5">
             {project.tags.map((tag, index) => (
-              <Badge key={index} variant="secondary" className="text-xs">
+              <Badge key={index} variant="secondary" className="text-xs bg-muted hover:bg-muted/80 text-muted-foreground">
                 {tag}
               </Badge>
             ))}
           </div>
         )}
       </CardHeader>
-      <CardContent className="flex-grow pb-4">
-        <CardDescription className="text-sm leading-relaxed">{project.description}</CardDescription>
+      <CardContent className="flex-grow pb-4 px-4">
+        <CardDescription className="text-sm text-foreground/80 leading-relaxed">{project.description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-end gap-2 pt-0 pb-4 px-4">
+      <CardFooter className="flex justify-end gap-2 pt-2 pb-4 px-4">
         {project.githubUrl && (
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:bg-muted">
             <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Github className="mr-1.5 h-4 w-4" /> GitHub
+              <Github className="mr-1.5 h-4 w-4" /> Code
             </Link>
           </Button>
         )}
         {project.liveUrl && (
-          <Button asChild variant="default" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button asChild variant="ghost" size="sm" className="text-accent hover:text-accent-foreground hover:bg-accent/90">
              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-               <ExternalLink className="mr-1.5 h-4 w-4" /> Live Demo
+               <ExternalLink className="mr-1.5 h-4 w-4" /> Demo
              </Link>
           </Button>
         )}

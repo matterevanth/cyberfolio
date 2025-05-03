@@ -21,46 +21,72 @@ export default async function Home() {
     console.error('Error fetching LinkedIn profile:', err);
     error = 'Failed to load profile data. Please try again later.';
     // Assign dummy data in case of error to prevent build failure,
-    // or handle the error state appropriately in the UI.
     profile = {
-      fullName: 'Error Loading Profile',
-      headline: '',
+      fullName: 'Revanth Matte',
+      headline: 'Software Engineer',
       profilePictureUrl: 'https://picsum.photos/200/200', // Placeholder image
-      about: '',
+      about: 'Error loading profile information.',
       experiences: [],
       educations: [],
     };
   }
 
+  // Ensure profile is not null for rendering, even if error occurred
+  const displayProfile = profile || {
+      fullName: 'Revanth Matte',
+      headline: 'Software Engineer',
+      profilePictureUrl: 'https://picsum.photos/200/200',
+      about: 'Loading profile...',
+      experiences: [],
+      educations: [],
+  };
+
 
   return (
-    <div className="flex min-h-screen flex-col bg-secondary">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Header />
-      <main className="container mx-auto flex-grow p-4 md:p-8 lg:p-12">
+      <main className="container mx-auto flex-grow max-w-4xl p-4 pt-16 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
         {error && (
-          <div className="mb-8 rounded-md border border-destructive bg-destructive/10 p-4 text-destructive">
+          <div className="mb-12 rounded-md border border-destructive bg-destructive/10 p-4 text-destructive">
             {error}
           </div>
         )}
-        {profile && (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {/* Profile Section - Spans 1 column on medium screens and up */}
-            <div className="md:col-span-1">
-              <ProfileCard profile={profile} />
-              <Separator className="my-6 md:hidden" /> {/* Separator for mobile */}
-              <ContactSection />
-            </div>
 
-            {/* Main Content - Spans 2 columns on medium screens and up */}
-            <div className="space-y-8 md:col-span-2">
-              <ExperienceSection experiences={profile.experiences} />
-              <Separator />
-              <EducationSection educations={profile.educations} />
-              <Separator />
-              <ProjectShowcase />
-            </div>
-          </div>
-        )}
+        {/* Single Column Layout */}
+        <div className="flex flex-col space-y-16 md:space-y-20 lg:space-y-24">
+          {/* Profile Section */}
+          <section id="about">
+            <ProfileCard profile={displayProfile} />
+          </section>
+
+          <Separator className="bg-border/50" />
+
+          {/* Experience Section */}
+          <section id="experience">
+            <ExperienceSection experiences={displayProfile.experiences} />
+          </section>
+
+          <Separator className="bg-border/50" />
+
+          {/* Project Showcase Section */}
+          <section id="projects">
+            <ProjectShowcase />
+          </section>
+
+          <Separator className="bg-border/50" />
+
+          {/* Education Section */}
+           <section id="education">
+            <EducationSection educations={displayProfile.educations} />
+           </section>
+
+           <Separator className="bg-border/50" />
+
+           {/* Contact Section */}
+           <section id="contact">
+             <ContactSection />
+           </section>
+        </div>
       </main>
       <Footer />
     </div>

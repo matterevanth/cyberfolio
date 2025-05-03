@@ -9,20 +9,21 @@ interface EducationSectionProps {
 
 export default function EducationSection({ educations }: EducationSectionProps) {
   return (
-    <Card className="shadow-md transition-shadow hover:shadow-lg">
-      <CardHeader className="flex flex-row items-center gap-3">
+     // Removed card styling from the main container
+     <div className="space-y-8">
+      <div className="flex items-center gap-3 mb-6">
         <GraduationCap className="h-6 w-6 text-primary" />
-        <CardTitle className="text-xl font-semibold text-primary">Education</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+        <h2 className="text-2xl font-semibold text-foreground tracking-tight">Education</h2>
+      </div>
+      <div className="space-y-6">
         {educations.length > 0 ? (
           educations.map((edu, index) => (
             <EducationCard key={index} education={edu} />
           ))
         ) : (
-          <p className="text-muted-foreground">No education information available.</p>
+          <p className="text-muted-foreground">Education details are currently being updated.</p>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

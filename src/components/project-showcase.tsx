@@ -6,45 +6,55 @@ import { Code, FolderGit2 } from 'lucide-react';
 const projects = [
   {
     title: "Project Alpha",
-    description: "An innovative web application built with Next.js and TypeScript, focusing on real-time collaboration.",
+    description: "An innovative web application built with Next.js and TypeScript, focusing on real-time collaboration features and performance optimization.",
     imageUrl: "https://picsum.photos/seed/alpha/600/400",
     liveUrl: "#",
     githubUrl: "#",
-    tags: ["Next.js", "TypeScript", "WebSockets"],
-    aiHint: "abstract tech code"
+    tags: ["Next.js", "TypeScript", "WebSockets", "Tailwind CSS"],
+    aiHint: "abstract tech code dark"
   },
   {
     title: "Project Beta",
-    description: "A mobile app developed using React Native, designed to track personal fitness goals and progress.",
+    description: "A cross-platform mobile app using React Native for tracking personal fitness goals, featuring data sync and visualization.",
     imageUrl: "https://picsum.photos/seed/beta/600/400",
     liveUrl: "#",
     githubUrl: "#",
-    tags: ["React Native", "Mobile App", "Fitness"],
-     aiHint: "mobile app interface"
+    tags: ["React Native", "iOS", "Android", "Firebase"],
+     aiHint: "mobile app ui fitness dark"
   },
   {
     title: "Project Gamma",
-    description: "A data analysis tool created with Python and Pandas, visualizing complex datasets for business intelligence.",
+    description: "A data analysis dashboard built with Python (Flask/Pandas) to visualize complex datasets for business intelligence insights.",
     imageUrl: "https://picsum.photos/seed/gamma/600/400",
     liveUrl: null, // No live demo for this one
     githubUrl: "#",
-    tags: ["Python", "Pandas", "Data Visualization"],
-    aiHint: "data chart graph"
+    tags: ["Python", "Flask", "Pandas", "Plotly"],
+    aiHint: "data chart graph dark theme"
+  },
+   {
+    title: "Project Delta",
+    description: "An e-commerce platform backend developed with Node.js and Express, integrated with Stripe for payments.",
+    imageUrl: "https://picsum.photos/seed/delta/600/400",
+    liveUrl: "#",
+    githubUrl: "#",
+    tags: ["Node.js", "Express", "MongoDB", "Stripe API"],
+    aiHint: "server code terminal dark"
   },
 ];
 
 export default function ProjectShowcase() {
   return (
-    <Card className="shadow-md transition-shadow hover:shadow-lg">
-       <CardHeader className="flex flex-row items-center gap-3">
+     // Removed card styling from the main container
+    <div className="space-y-8">
+       <div className="flex items-center gap-3 mb-6">
          <FolderGit2 className="h-6 w-6 text-primary" />
-        <CardTitle className="text-xl font-semibold text-primary">Projects</CardTitle>
-      </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <h2 className="text-2xl font-semibold text-foreground tracking-tight">Projects</h2>
+      </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {projects.map((project, index) => (
           <ProjectCard key={index} project={project} />
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

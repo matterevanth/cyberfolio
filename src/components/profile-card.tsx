@@ -15,24 +15,21 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
     .join('');
 
   return (
-    <Card className="overflow-hidden shadow-md transition-shadow hover:shadow-lg">
-      <CardHeader className="items-center text-center bg-primary/10 p-6">
-         <Avatar className="h-24 w-24 border-4 border-background shadow-sm">
-           {/* Use next/image for optimization, though URL is external */}
-           <AvatarImage
-             src={profile.profilePictureUrl}
-             alt={profile.fullName}
-             data-ai-hint="profile picture professional"
-           />
-           <AvatarFallback className="text-2xl">{initials}</AvatarFallback>
-         </Avatar>
-        <CardTitle className="mt-4 text-2xl font-bold text-primary">{profile.fullName}</CardTitle>
-        <CardDescription className="text-muted-foreground">{profile.headline}</CardDescription>
-      </CardHeader>
-      <CardContent className="p-6">
-        <h3 className="mb-2 text-lg font-semibold text-primary">About</h3>
-        <p className="text-sm text-foreground/80 leading-relaxed">{profile.about || "No about information provided."}</p>
-      </CardContent>
-    </Card>
+    <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:gap-10">
+       <Avatar className="h-28 w-28 md:h-32 md:w-32 border-2 border-primary/50 shadow-sm shrink-0">
+         {/* Use next/image for optimization, though URL is external */}
+         <AvatarImage
+           src={profile.profilePictureUrl}
+           alt={profile.fullName}
+           data-ai-hint="profile picture professional dark background"
+         />
+         <AvatarFallback className="text-3xl bg-muted">{initials}</AvatarFallback>
+       </Avatar>
+       <div className="space-y-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{profile.fullName}</h1>
+          <p className="text-lg md:text-xl text-primary font-medium">{profile.headline}</p>
+          <p className="text-base text-muted-foreground leading-relaxed pt-2">{profile.about || "Software Engineer based in [Your Location]."}</p>
+       </div>
+    </div>
   );
 }
