@@ -60,6 +60,11 @@ export default async function Home() {
             <ProfileCard profile={displayProfile} />
           </section>
 
+          {/* Contact Section - Moved Here */}
+           <section id="contact">
+             <ContactSection />
+           </section>
+
           <Separator className="bg-border/50" />
 
           {/* Skills Section */}
@@ -91,16 +96,11 @@ export default async function Home() {
             <EducationSection educations={displayProfile.educations} />
            </section>
 
-           <Separator className="bg-border/50" />
+           {/* Separator removed from here as Contact is moved up */}
 
-           {/* Contact Section */}
-           <section id="contact">
-             <ContactSection />
-           </section>
         </div>
       </main>
       <Footer />
     </div>
   );
 }
-

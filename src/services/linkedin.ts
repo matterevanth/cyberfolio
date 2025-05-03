@@ -87,9 +87,9 @@ export interface Education {
    */
   endDate: string;
   /**
-   * The description of the education.
+   * The description of the education (Removed from display, kept in type for potential future use).
    */
-  description?: string; // Made description optional
+  description?: string;
 }
 
 /**
@@ -204,14 +204,14 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         degree: "Master of Engineering in Cybersecurity",
         startDate: '2022-08',
         endDate: '2024-05',
-        description: 'Focused on network security, ethical hacking, cryptography, and security management. Engaged in hands-on labs and projects simulating real-world cybersecurity scenarios.',
+        // description removed as requested
       },
       {
         school: 'SRM University',
         degree: "Bachelor of Technology, Computer Science",
         startDate: '2018-07',
         endDate: '2022-05',
-        description: 'Developed a strong foundation in computer science principles, data structures, algorithms, and software development. Participated in coding competitions and tech fests.',
+         // description removed as requested
       },
     ],
     skills: {

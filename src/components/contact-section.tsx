@@ -1,6 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, Phone, FileText } from 'lucide-react'; // Added FileText for Resume
+import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ContactSection() {
@@ -13,41 +12,32 @@ export default function ContactSection() {
   };
 
   return (
-     // Removed card styling for a cleaner integration
-    <div className="space-y-8">
-       <div className="flex items-center gap-3 mb-6">
-         <Mail className="h-6 w-6 text-primary" />
-         <h2 className="text-2xl font-semibold text-foreground tracking-tight">Get In Touch</h2>
-       </div>
-      <div className="space-y-4">
-          <p className="text-muted-foreground">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out!
-          </p>
-         <div className="flex flex-wrap gap-4 pt-4">
-             <Button asChild variant="outline" className="border-border/50 hover:bg-muted/30 hover:text-foreground">
-                <a href={`mailto:${contact.email}`} target="_blank" rel="noopener noreferrer">
-                  <Mail className="mr-2 h-4 w-4" /> Email
-                </a>
-             </Button>
-             <Button asChild variant="outline" className="border-border/50 hover:bg-muted/30 hover:text-foreground">
-               <Link href={contact.linkedin} target="_blank" rel="noopener noreferrer">
-                 <Linkedin className="mr-2 h-4 w-4" /> LinkedIn
-               </Link>
-             </Button>
-             <Button asChild variant="outline" className="border-border/50 hover:bg-muted/30 hover:text-foreground">
-                <Link href={contact.github} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" /> GitHub
-                </Link>
-              </Button>
-             {contact.resumeUrl && (
-              <Button asChild variant="outline" className="border-border/50 hover:bg-muted/30 hover:text-foreground">
-                 {/* Make sure the resume PDF exists in the /public directory */}
-                 <Link href={contact.resumeUrl} target="_blank" rel="noopener noreferrer" download="Revanth_Matte_Resume.pdf">
-                   <FileText className="mr-2 h-4 w-4" /> Resume
-                 </Link>
-              </Button>
-             )}
-          </div>
+     // Simplified div structure for horizontal layout, reduced spacing
+    <div className="mt-6 mb-8">
+      <div className="flex flex-wrap justify-start items-center gap-3">
+         <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+            <a href={`mailto:${contact.email}`} target="_blank" rel="noopener noreferrer">
+              <Mail className="mr-1.5 h-3.5 w-3.5" /> Email
+            </a>
+         </Button>
+         <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+           <Link href={contact.linkedin} target="_blank" rel="noopener noreferrer">
+             <Linkedin className="mr-1.5 h-3.5 w-3.5" /> LinkedIn
+           </Link>
+         </Button>
+         <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+            <Link href={contact.github} target="_blank" rel="noopener noreferrer">
+              <Github className="mr-1.5 h-3.5 w-3.5" /> GitHub
+            </Link>
+          </Button>
+         {contact.resumeUrl && (
+          <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+             {/* Make sure the resume PDF exists in the /public directory */}
+             <Link href={contact.resumeUrl} target="_blank" rel="noopener noreferrer" download="Revanth_Matte_Resume.pdf">
+               <FileText className="mr-1.5 h-3.5 w-3.5" /> Resume
+             </Link>
+          </Button>
+         )}
       </div>
     </div>
   );
