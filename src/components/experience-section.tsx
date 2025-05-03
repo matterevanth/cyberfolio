@@ -37,13 +37,14 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
         {sortedExperiences.length > 0 ? (
           sortedExperiences.map((exp, index) => (
             <div key={index} className="relative mb-12 md:grid md:grid-cols-2 md:items-start md:gap-8"> {/* Use grid for alignment */}
-               {/* Timeline Dot - Positioned relative to the grid column */}
-               <div className={cn("relative order-1", index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2')}>
+               {/* Timeline Dot - Positioned relative to the grid column, now centers vertically */}
+               <div className={cn(
+                   "relative md:flex md:items-center md:justify-center", // Use flex for centering on md+
+                   index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'
+                )}>
                  <span className={cn(
-                    "absolute left-1/2 top-1 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary ring-4 ring-background",
-                    // Position dot absolutely within its grid cell for mobile, relative for md+
-                    "md:relative md:left-auto md:top-auto md:translate-x-0",
-                    // Align dot to the line on md+ screens
+                    "absolute left-1/2 top-1 -translate-x-1/2 md:relative md:left-auto md:top-auto md:translate-x-0 flex h-4 w-4 items-center justify-center rounded-full border-2 border-primary ring-4 ring-background",
+                    // Align dot to the line on md+ screens, adjust margin for connection
                     index % 2 === 0 ? 'md:ml-auto md:mr-[-9px]' : 'md:mr-auto md:ml-[-9px]',
                      index === 0 ? "bg-primary" : "bg-muted"
                   )} aria-hidden="true">

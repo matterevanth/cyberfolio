@@ -28,30 +28,36 @@ export default function TypingEffect({
         index++;
       } else {
         clearInterval(intervalId);
-        setShowCursor(false); // Hide cursor when done
+        // Keep cursor blinking after finishing for a moment
+        // setTimeout(() => setShowCursor(false), 1500); // Optional: Hide cursor after a delay
       }
     }, speed);
 
     return () => clearInterval(intervalId); // Cleanup on unmount
   }, [text, speed]);
 
-  // Blinking cursor effect (only while typing)
+  // Blinking cursor effect
   useEffect(() => {
-    if (displayedText.length < text.length) {
-       const cursorInterval = setInterval(() => {
-         setShowCursor((prev) => !prev);
-       }, 500); // Cursor blink speed
-       return () => clearInterval(cursorInterval);
-    } else {
-         setShowCursor(false); // Ensure cursor is off when typing finished
-    }
-  }, [displayedText, text.length]);
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 530); // Standard cursor blink speed
 
+    return () => clearInterval(cursorInterval);
+  }, []); // Run once on mount
 
   return (
-    <p className={cn('relative', className)} {...props}>
+    <p className={cn('relative font-mono', className)} {...props}> {/* Ensure mono font */}
       {displayedText}
-      {showCursor && <span className={cn('inline-block h-[1em] w-[1px] bg-current align-text-bottom ml-0.5 animate-pulse', cursorClassName)}></span>}
+      {/* Blinking block cursor */}
+      <span
+        className={cn(
+          'ml-0.5 inline-block h-[1.1em] w-[0.6em] -mb-[0.15em] align-middle', // Size and alignment
+          'animate-pulse', // Use pulse animation
+          showCursor ? 'bg-current' : 'bg-transparent', // Show/hide based on state
+          cursorClassName
+        )}
+        aria-hidden="true"
+      ></span>
     </p>
   );
 }

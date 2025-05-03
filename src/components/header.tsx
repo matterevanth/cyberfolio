@@ -6,12 +6,11 @@ import React from 'react';
 
 
 const navItems = [
-  { name: 'About', href: '/#about' }, // Point to homepage anchor
-  // { name: 'Skills', href: '/#skills' }, // Removed Skills link
+  { name: 'About', href: '/' }, // Point to homepage
   { name: 'Experience', href: '/experience' },
   { name: 'Projects', href: '/projects' },
-  { name: 'Education', href: '/#education' }, // Point to homepage anchor
-  { name: 'Contact', href: '/contact' }, // Keep separate contact page for now
+  // { name: 'Education', href: '/#education' }, // Removed Education link
+  { name: 'Contact', href: '/contact' },
 ];
 
 export default function Header() {

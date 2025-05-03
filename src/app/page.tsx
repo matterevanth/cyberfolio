@@ -1,7 +1,7 @@
 import type { LinkedInProfile } from '@/services/linkedin';
 import { getLinkedInProfile } from '@/services/linkedin';
 import ProfileCard from '@/components/profile-card';
-import ContactSection from '@/components/contact-section';
+// Removed ContactSection import
 import EducationSection from '@/components/education-section'; // Import Education
 import CertificationsSection from '@/components/certifications-section'; // Import Certifications
 import Header from '@/components/header';
@@ -49,23 +49,19 @@ export default async function Home() {
             <ProfileCard profile={displayProfile} />
           </section>
 
-           {/* Contact Section - Moved Under Profile */}
-           <section id="contact" className="scroll-mt-16">
-              <ContactSection />
-            </section>
-
-           {/* Education Section - Moved to Home */}
+          {/* Education Section */}
           <section id="education" className="scroll-mt-16">
             <EducationSection educations={displayProfile.educations} />
           </section>
 
-          {/* Certifications Section - Moved to Home */}
+          {/* Certifications Section */}
            <section id="certifications" className="scroll-mt-16">
              <CertificationsSection certifications={displayProfile.certifications} />
            </section>
 
           {/* Skills Section Removed */}
           {/* Experience, Projects are on separate pages */}
+          {/* Contact Section removed from main page structure */}
 
         </div>
       </main>
