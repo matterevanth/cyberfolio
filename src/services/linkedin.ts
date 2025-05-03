@@ -211,8 +211,8 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         "Ethical Hacking", // Added Ethical Hacking
     ],
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    // Updated About Me section - removed leading 'A '
-    about: 'Passionate cybersecurity professional 🔐 who started with a strong foundation in system and network security, diving deep into the world of vulnerabilities, exploits, and defenses. I began my journey in security operations—analyzing threats, triaging incidents, and monitoring systems in real time to keep organizations safe from evolving threats 🛡️. Over time, I expanded into offensive security, mastering web and API penetration testing, vulnerability assessments, and red team simulations. Using tools like Burp Suite, Nessus, and Wireshark, and scripting with Python ⚙️, I’ve identified critical flaws, bypassed hardened defenses, and helped strengthen overall security posture. My projects span everything from bypassing WAFs 🔓 to automating threat detection across hybrid environments. Currently pursuing my OSCP and HTB CDSA certifications 📚, I continue to hone both red and blue team skills—bridging the gap between adversary simulation and proactive defense. My Master\'s in Cybersecurity from the University of Maryland 🎓 has deepened my understanding of secure architectures, IAM, and incident response methodologies. Whether it\'s protecting cloud infrastructure, dissecting phishing campaigns, or reverse-engineering threats 🧠, I bring curiosity, precision, and drive to every engagement—turning complex problems into practical, secure solutions 🚀.',
+    // Updated About Me section with paragraph breaks using \n
+    about: "A cybersecurity professional who thrives at the intersection of offense and defense. With hands-on experience in both penetration testing and threat detection, I approach security holistically—breaking systems to understand their weaknesses, and then building smarter defenses to protect them.\n\nMy background includes simulating real-world attacks on web applications, APIs, and cloud environments, as well as monitoring, triaging, and responding to incidents in fast-paced SOC environments. I’ve used tools like Burp Suite, Wireshark, and SIEM platforms to identify vulnerabilities and strengthen infrastructure from both ends.\n\nWhether I’m writing Python scripts to automate detection, performing red team assessments, or aligning controls with frameworks like MITRE and NIST—I bring precision, curiosity, and accountability to every engagement. I’m currently pursuing OSCP and HTB CDSA to deepen my capabilities in both offensive tactics and defensive operations.\n\nIf you’re into ethical hacking, detection engineering, or building resilient systems, take a look around—this portfolio is a reflection of my passion for securing what matters. 🔐💻",
     experiences: [
        {
         title: 'Application Security Analyst',
@@ -291,14 +291,14 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         OperatingSystems: ["Kali Linux", "Ubuntu", "Parrot OS", "Windows"],
         Programming: ["Python", "Bash", "PowerShell", "SQL", "C"]
     },
-    certifications: [ // Updated Certifications list
+    certifications: [ // Updated Certifications list - Pursuing at the top
+        { name: "Offensive Security Certified Professional (OSCP)", organization: "Offensive Security", status: 'pursuing'},
+        { name: "Hack The Box Certified Defensive Security Analyst (HTB CDSA)", organization: "Hack The Box", status: 'pursuing'},
         { name: "Certified Ethical Hacker (CEH)", organization: "EC-Council", status: 'completed' },
         { name: "Multi-Cloud Red Team Analyst (MCRTA)", organization: "CyberWarfare Labs", status: 'completed' }, // Updated MCRTA
         { name: "eLearnSecurity Junior Penetration Tester (eJPT)", organization: "INE", status: 'completed' }, // Updated eJPT
         { name: "Practical Ethical Hacking (PEH)", organization: "TCM Security", status: 'completed' },
         { name: "CompTIA Security+", organization: "CompTIA", status: 'completed' }, // Added Security+
-        { name: "Offensive Security Certified Professional (OSCP)", organization: "Offensive Security", status: 'pursuing'},
-        { name: "Hack The Box Certified Defensive Security Analyst (HTB CDSA)", organization: "Hack The Box", status: 'pursuing'},
     ],
     projects: [ // Moved Projects here
         {
@@ -336,4 +336,3 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
     ],
   };
 }
-

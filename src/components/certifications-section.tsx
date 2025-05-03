@@ -9,6 +9,13 @@ interface CertificationsSectionProps {
 }
 
 export default function CertificationsSection({ certifications }: CertificationsSectionProps) {
+  // Sort certifications: pursuing first, then alphabetically by name
+  const sortedCertifications = certifications.sort((a, b) => {
+    if (a.status === 'pursuing' && b.status !== 'pursuing') return -1;
+    if (a.status !== 'pursuing' && b.status === 'pursuing') return 1;
+    return a.name.localeCompare(b.name); // Alphabetical for same status
+  });
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 mb-4">
@@ -20,8 +27,8 @@ export default function CertificationsSection({ certifications }: Certifications
       </div>
       {/* List layout for certifications */}
       <ul className="list-none space-y-3 pl-2"> {/* Changed grid to list */}
-        {certifications.length > 0 ? (
-          certifications.map((cert, index) => (
+        {sortedCertifications.length > 0 ? (
+          sortedCertifications.map((cert, index) => (
             <li
               key={index}
               className={cn(

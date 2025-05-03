@@ -1,21 +1,24 @@
 'use client';
 
-import { useState, useEffect, type HTMLAttributes } from 'react';
+import { useState, useEffect, type HTMLAttributes, type ElementType } from 'react';
 import { cn } from '@/lib/utils';
 
-interface TypingEffectProps extends HTMLAttributes<HTMLParagraphElement> {
+// Extend props to accept elementType
+interface TypingEffectProps<T extends ElementType = 'p'> extends HTMLAttributes<HTMLElement> {
   text: string;
   speed?: number; // Milliseconds per character
   cursorClassName?: string;
+  elementType?: T; // Allow specifying the element type
 }
 
-export default function TypingEffect({
+export default function TypingEffect<T extends ElementType = 'p'>({
   text,
   speed = 50, // Default speed
   className,
   cursorClassName,
+  elementType: Component = 'p', // Default to 'p' if not provided
   ...props
-}: TypingEffectProps) {
+}: TypingEffectProps<T>) {
   const [displayedText, setDisplayedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
 
@@ -45,8 +48,9 @@ export default function TypingEffect({
     return () => clearInterval(cursorInterval);
   }, []); // Run once on mount
 
+  // Use the specified Component (defaults to 'p')
   return (
-    <p className={cn('relative font-mono', className)} {...props}> {/* Ensure mono font */}
+    <Component className={cn('relative font-mono', className)} {...props}>
       {displayedText}
       {/* Blinking block cursor */}
       <span
@@ -58,6 +62,6 @@ export default function TypingEffect({
         )}
         aria-hidden="true"
       ></span>
-    </p>
+    </Component>
   );
 }

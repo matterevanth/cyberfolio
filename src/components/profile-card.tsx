@@ -77,9 +77,10 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
            <div className="border border-border/50 bg-card p-4 rounded-none shadow-inner shadow-primary/10">
                <TypingEffect
                   text={profile.about || "Passionate cybersecurity professional and Software Engineer."}
-                  className="text-sm text-muted-foreground leading-relaxed font-mono" // Use mono font
+                  className="text-sm text-muted-foreground leading-relaxed font-mono whitespace-pre-line" // Use mono font & preserve newlines
                   cursorClassName="text-primary bg-primary" // Blinking block cursor
                   speed={10} // Slightly faster typing
+                  elementType="div" // Use div to better handle newlines
                 />
            </div>
        </div>
