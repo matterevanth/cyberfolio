@@ -10,51 +10,50 @@ interface ExperienceSectionProps {
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   // Sort experiences by start date, most recent first
   const sortedExperiences = experiences.sort((a, b) => {
-    // Handle 'Present' case by setting it to a very future date for sorting
     const dateAString = a.startDate?.replace('Present', '9999-12');
     const dateBString = b.startDate?.replace('Present', '9999-12');
-
-    // Ensure dates are valid before creating Date objects
-    // Basic check for YYYY-MM format
     const isValidDateString = (ds: string | undefined) => ds && /^\d{4}-\d{2}$/.test(ds);
-
-    const dateA = isValidDateString(dateAString) ? new Date(dateAString + '-01') : new Date(0); // Use day 01, fallback to epoch start
-    const dateB = isValidDateString(dateBString) ? new Date(dateBString + '-01') : new Date(0); // Use day 01, fallback to epoch start
-
+    const dateA = isValidDateString(dateAString) ? new Date(dateAString + '-01') : new Date(0);
+    const dateB = isValidDateString(dateBString) ? new Date(dateBString + '-01') : new Date(0);
     return dateB.getTime() - dateA.getTime();
   });
 
-
   return (
-    <div className="space-y-6"> {/* Reduced spacing */}
-      <div className="flex items-center gap-2 mb-6"> {/* Reduced bottom margin */}
+    <div className="space-y-6">
+      <div className="flex items-center gap-2 mb-8"> {/* Increased bottom margin */}
          <span className="text-primary mr-1 font-mono">$</span> {/* Command prompt style */}
          <h2 className="text-xl font-semibold text-foreground tracking-tight flex items-center gap-2">
             <Briefcase className="h-5 w-5 text-primary" />
             Work Experience:
         </h2>
       </div>
-      {/* Terminal timeline: Use border color, adjust padding/margin */}
-      <div className="relative pl-5 border-l border-border/70 ml-2"> {/* Adjusted padding/margin */}
+
+      {/* Alternating Timeline Layout */}
+      <div className="relative flow-root">
+        {/* Vertical Timeline Line */}
+        <div className="absolute left-1/2 top-0 -ml-px h-full w-0.5 bg-border/70" aria-hidden="true"></div>
+
         {sortedExperiences.length > 0 ? (
           sortedExperiences.map((exp, index) => (
-            <div key={index} className="mb-8 last:mb-0"> {/* Spacing between timeline items */}
-              {/* Terminal Timeline Dot: Smaller, square-ish, different colors */}
-              {/* Added pulse animation */}
+            <div key={index} className="relative mb-12"> {/* Spacing between timeline items */}
+               {/* Timeline Dot */}
               <span className={cn(
-                  "absolute -left-[0.6rem] flex h-4 w-4 items-center justify-center border border-primary ring-2 ring-background", // Smaller, border, ring
-                  index === 0 ? "bg-primary" : "bg-muted", // Highlight current/latest job
-                   // Apply pulse animation conditionally or always
-                  "rounded-sm animate-pulse duration-1000 delay-100" // Add pulse animation
-              )}>
-                 <Briefcase className={cn("h-2 w-2", index === 0 ? "text-primary-foreground": "text-primary")} />
+                  "absolute left-1/2 top-1 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary ring-4 ring-background",
+                   index === 0 ? "bg-primary" : "bg-muted" // Highlight current/latest job dot differently if needed
+              )} aria-hidden="true">
+                 <span className={cn("h-1.5 w-1.5 rounded-full", index === 0 ? "bg-primary-foreground" : "bg-primary")}></span>
               </span>
 
-              {/* Experience Card - Positioned to the right of the line */}
-              {/* Added fade-in animation with stagger */}
-              <div className="ml-4 animate-in fade-in slide-in-from-left-4 duration-500 ease-out" style={{ animationDelay: `${index * 100}ms` }}> {/* Keep margin */}
-                 {/* Pass index to ExperienceCard */}
-                <ExperienceCard experience={exp} index={index} />
+              {/* Experience Card - Positioned left or right */}
+              <div
+                className={cn(
+                  "relative animate-in fade-in duration-500 ease-out",
+                  index % 2 === 0 ? "md:ml-[55%] md:pl-6" : "md:mr-[55%] md:pr-6 md:text-right", // Alternate sides on medium+ screens
+                  "ml-8 md:ml-0" // Default margin for small screens
+                )}
+                 style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'backwards' }}
+              >
+                <ExperienceCard experience={exp} align={index % 2 === 0 ? 'left' : 'right'} />
               </div>
             </div>
           ))

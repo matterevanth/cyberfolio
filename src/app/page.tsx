@@ -7,10 +7,9 @@ import ProjectShowcase from '@/components/project-showcase';
 import SkillsSection from '@/components/skills-section';
 import ContactSection from '@/components/contact-section';
 import CertificationsSection from '@/components/certifications-section'; // Import CertificationsSection
-// Removed Separator import
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import TerminalDivider from '@/components/terminal-divider'; // Import TerminalDivider
+// Removed TerminalDivider import
 
 export default async function Home() {
   // Update this URL if your LinkedIn profile URL is different (though data is hardcoded now)
@@ -62,7 +61,7 @@ export default async function Home() {
 
         {/* Single Column Layout */}
         {/* Terminal layout: adjusted vertical spacing */}
-        <div className="flex flex-col space-y-10 md:space-y-12 lg:space-y-14">
+        <div className="flex flex-col space-y-12 md:space-y-16 lg:space-y-20"> {/* Increased spacing */}
           {/* Profile Section */}
           <section id="about" className="scroll-mt-16">
              {/* Ensure displayProfile is passed */}
@@ -74,8 +73,7 @@ export default async function Home() {
              <ContactSection />
            </section>
 
-          {/* Thematic Divider */}
-          <TerminalDivider />
+          {/* Removed Thematic Divider */}
 
            {/* Skills Section */}
           <section id="skills" className="scroll-mt-16">
@@ -83,8 +81,7 @@ export default async function Home() {
             <SkillsSection skills={displayProfile.skills} />
           </section>
 
-          {/* Thematic Divider */}
-          <TerminalDivider />
+          {/* Removed Thematic Divider */}
 
           {/* Experience Section */}
           <section id="experience" className="scroll-mt-16">
@@ -92,8 +89,7 @@ export default async function Home() {
             <ExperienceSection experiences={displayProfile.experiences} />
           </section>
 
-          {/* Thematic Divider */}
-          <TerminalDivider />
+          {/* Removed Thematic Divider */}
 
           {/* Project Showcase Section */}
           <section id="projects" className="scroll-mt-16">
@@ -101,8 +97,7 @@ export default async function Home() {
              <ProjectShowcase projects={displayProfile.projects} />
           </section>
 
-          {/* Thematic Divider */}
-          <TerminalDivider />
+          {/* Removed Thematic Divider */}
 
           {/* Education Section */}
            <section id="education" className="scroll-mt-16">
@@ -110,8 +105,7 @@ export default async function Home() {
             <EducationSection educations={displayProfile.educations} />
            </section>
 
-           {/* Thematic Divider */}
-           <TerminalDivider />
+           {/* Removed Thematic Divider */}
 
             {/* Certifications Section */}
            <section id="certifications" className="scroll-mt-16">
