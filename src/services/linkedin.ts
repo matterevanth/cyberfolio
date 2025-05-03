@@ -45,13 +45,21 @@ export interface Experience {
    */
   startDate: string;
   /**
-   * The end date of the experience. Format: YYYY-MM
+   * The end date of the experience. Format: YYYY-MM or 'Present'
    */
   endDate?: string; // Optional for current positions
   /**
    * The description of the experience.
    */
   description: string;
+  /**
+   * Skills or technologies mentioned (Optional)
+   */
+  skills?: string[];
+  /**
+   * Location (Optional, though user asked to omit, keeping field for structure)
+   */
+  location?: string;
 }
 
 /**
@@ -80,6 +88,22 @@ export interface Education {
   description?: string; // Made description optional
 }
 
+// Helper function to parse date string like "Month YYYY" or "Present" to "YYYY-MM" or "Present"
+const parseExperienceDate = (dateString: string): string => {
+  if (dateString.toLowerCase() === 'present') {
+    return 'Present';
+  }
+  try {
+    const [month, year] = dateString.split(' ');
+    const monthIndex = new Date(Date.parse(month +" 1, 2012")).getMonth() + 1; // Get month number (1-12)
+    return `${year}-${monthIndex.toString().padStart(2, '0')}`;
+  } catch (e) {
+    console.warn(`Could not parse date: ${dateString}`);
+    return dateString; // Return original if parsing fails
+  }
+};
+
+
 /**
  * Asynchronously retrieves LinkedIn profile information.
  *
@@ -95,41 +119,71 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Software Engineer | Full Stack Developer | Cybersecurity Enthusiast', // Updated headline
+    headline: 'Software Engineer | Full Stack Developer | Cybersecurity Enthusiast', // Kept headline as before, user summary is in about
     // Placeholder image - replace with actual if available
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    about: 'Dedicated and skilled Software Engineer with a Master\'s in Cybersecurity and experience in full-stack development, cloud technologies, and building scalable applications. Passionate about problem-solving, security, and creating efficient, user-friendly solutions. Seeking challenging opportunities to leverage technical expertise and contribute to innovative projects.', // Updated about section
+    about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities.', // Updated about section from SUMMARY
     experiences: [
-      {
-        title: 'Software Engineer',
-        company: 'Tech Solutions Inc.', // Example Company
-        startDate: '2021-06', // Example Date (YYYY-MM)
-        // endDate: 'Present', // Omit for current position
-        description: 'Developed and maintained key features for a large-scale web application using React, Node.js, and AWS. Collaborated with cross-functional teams to define, design, and ship new functionalities. Improved application performance by optimizing database queries and implementing caching strategies. Contributed to security reviews and vulnerability assessments.', // Added security aspect
-      },
-      {
-        title: 'Software Development Intern',
-        company: 'Innovatech Labs', // Example Company
-        startDate: '2020-05', // Example Date (YYYY-MM)
-        endDate: '2020-08', // Example Date (YYYY-MM)
-        description: 'Assisted senior engineers in developing backend APIs using Python and Django. Wrote unit tests and participated in code reviews. Gained experience with Agile methodologies and version control systems (Git).',
-      },
-      // Add more relevant experiences if needed
-    ],
-    educations: [
        {
-        school: 'University of Maryland College Park', // Updated School
-        degree: "Master of Engineering in Cybersecurity", // Updated Degree
-        startDate: '2022-08', // Updated Start Date
-        endDate: '2024-05', // Updated End Date
-        description: 'Focused on network security, ethical hacking, cryptography, and security management. Engaged in hands-on labs and projects simulating real-world cybersecurity scenarios.', // Updated description
+        title: 'Application Security Analyst',
+        company: 'Dream Studio',
+        startDate: parseExperienceDate('Sept 2024'),
+        endDate: parseExperienceDate('Present'),
+        skills: ['Python', 'Flask', 'Git', 'OWASP ZAP'],
+        location: 'Remote', // Included as per resume but will be omitted in display if needed
+        description: '• Discovered and addressed 20+ OWASP Top 10 issues by performing security assessments & reviewing Python/JavaScript codebases.\n• Identified insecure TLS configurations and misused security headers (e.g., missing CSP, HSTS, X-Frame-Options) during endpoint reviews, recommending hardening steps for improved transport security.\n• Delivered in-depth API testing using Burp Suite and tailored test cases to expose authentication gaps, logic errors, and insecure endpoints.\n• Collaborated with developers to integrate security into CI/CD workflows, embedding secure coding practices and enhancing code review processes.',
       },
       {
-        school: 'SRM University', // Updated School
-        degree: "Bachelor of Technology, Computer Science", // Updated Degree
-        startDate: '2018-07', // Updated Start Date
-        endDate: '2022-05', // Updated End Date
-        description: 'Developed a strong foundation in computer science principles, data structures, algorithms, and software development. Participated in coding competitions and tech fests.', // Updated description
+        title: 'Cybersecurity Trainee',
+        company: 'Tata Consultancy Services',
+        startDate: parseExperienceDate('Jan 2022'),
+        endDate: parseExperienceDate('Jun 2022'),
+        skills: ['Nessus', 'SonarQube', 'Semgrep'],
+        location: 'Remote',
+        description: '• Conducted vulnerability assessments and penetration testing across web apps and cloud infrastructure, identifying and triaging over 500 vulnerabilities and reducing overall threat exposure by 70%.\n• Performed manual and automated code reviews on APIs and web apps using SonarQube and Semgrep, uncovering insecure coding patterns, injection flaws, and auth misconfigurations before production release.\n• Automated validation of common OWASP vulnerabilities using Python scripts, improving consistency in testing workflows and enabling faster identification of critical security gaps.\n• Partnered with AppSec and cloud security teams to define secure coding baselines, optimize Nessus scan performance, and contribute to cross-functional security policy development.',
+      },
+      {
+        title: 'Web Application Penetration Tester Intern',
+        company: 'Indian Servers',
+        startDate: parseExperienceDate('Aug 2021'),
+        endDate: parseExperienceDate('Dec 2021'),
+        skills: ['Kali Linux', 'Burp Suite', 'OWASP', 'Penetration Testing'],
+        location: 'Remote',
+        description: '• Found security flaws in 10+ web applications using OWASP Top 10 methodology and tools such as Burp Suite and sqlmap.\n• Reported issues including authentication bypass, IDOR, and injection vulnerabilities, providing detailed proof-of-concept documentation.\n• Supported developers during remediation efforts by validating fixes and aligning with secure coding practices.',
+      },
+       {
+        title: 'Cybersecurity Intern',
+        company: 'The Sparks Foundation',
+        startDate: parseExperienceDate('Aug 2021'),
+        endDate: parseExperienceDate('Sep 2021'),
+         skills: ['SIEM', 'Snort IDS', 'Wireshark'],
+        location: 'Remote',
+        description: '• Monitored web and network traffic to detect application-layer anomalies using Snort IDS and log analysis.\n• Investigated false positives and correlated alerts to improve accuracy in identifying web-based attack patterns.\n• Contributed to internal threat intel updates focused on emerging application threats and detection signatures.',
+      },
+      {
+        title: 'Cybersecurity Intern',
+        company: 'Verzeo',
+        startDate: parseExperienceDate('Jan 2021'),
+        endDate: parseExperienceDate('Mar 2021'),
+        skills: ['OpenVAS', 'Nmap', 'API Security'], // Corrected OpenVASNmap
+        location: 'Remote',
+        description: '• Performed reconnaissance and vulnerability scans to map exposed services and weak configurations in web-facing systems.\n• Tested REST APIs for injection flaws and access control issues using Burp Suite Intruder and custom fuzzing payloads.\n• Documented vulnerabilities with CVSS-based risk ratings and remediation guidance tailored to application-layer risks.',
+      },
+    ],
+    educations: [ // Keeping education as previously updated
+       {
+        school: 'University of Maryland College Park',
+        degree: "Master of Engineering in Cybersecurity",
+        startDate: '2022-08',
+        endDate: '2024-05',
+        description: 'Focused on network security, ethical hacking, cryptography, and security management. Engaged in hands-on labs and projects simulating real-world cybersecurity scenarios.',
+      },
+      {
+        school: 'SRM University',
+        degree: "Bachelor of Technology, Computer Science",
+        startDate: '2018-07',
+        endDate: '2022-05',
+        description: 'Developed a strong foundation in computer science principles, data structures, algorithms, and software development. Participated in coding competitions and tech fests.',
       },
     ],
   };

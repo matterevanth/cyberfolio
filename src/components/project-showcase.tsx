@@ -2,43 +2,43 @@ import ProjectCard from './project-card';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, FolderGit2 } from 'lucide-react';
 
-// Placeholder project data - replace with Revanth Matte's actual projects
+// Placeholder project data - replace/refine with Revanth Matte's actual projects, derived from resume context
 const projects = [
   {
-    title: "Portfolio Website",
-    description: "This personal portfolio website, built with Next.js, Tailwind CSS, and ShadCN UI, showcasing skills, experience, and projects.",
-    imageUrl: "https://picsum.photos/seed/portfolio/600/400",
-    liveUrl: "#", // Add live URL if deployed
-    githubUrl: "https://github.com/revanthmatte/portfolio", // Replace with actual repo
-    tags: ["Next.js", "React", "Tailwind CSS", "ShadCN UI", "TypeScript"],
-    aiHint: "website portfolio dark theme screenshot"
+    title: "Vulnerability Scanner Automation",
+    description: "Developed Python scripts to automate the validation of common OWASP vulnerabilities (e.g., SQLi, XSS) identified by scanners like Nessus and OWASP ZAP, streamlining the verification process and reducing manual effort.",
+    imageUrl: "https://picsum.photos/seed/vuln-scanner/600/400",
+    liveUrl: null, // Typically no live demo for internal tools
+    githubUrl: null, // Assume private repo or conceptual project
+    tags: ["Python", "Automation", "Security Testing", "OWASP", "Scripting"],
+    aiHint: "python code terminal security dark theme"
   },
   {
-    title: "Cloud Cost Optimizer",
-    description: "A Python tool using AWS SDK (Boto3) to analyze EC2 instance usage and recommend cost-saving strategies like instance resizing or scheduling.",
-    imageUrl: "https://picsum.photos/seed/cloudcost/600/400",
+    title: "Secure API Development Guide",
+    description: "Collaborated on defining secure coding baselines and contributed to documentation outlining best practices for developing secure REST APIs, focusing on authentication, authorization, and input validation.",
+    imageUrl: "https://picsum.photos/seed/api-guide/600/400",
     liveUrl: null,
-    githubUrl: "https://github.com/revanthmatte/cloud-optimizer", // Replace with actual repo
-    tags: ["Python", "AWS", "Boto3", "Cost Optimization", "CLI"],
-     aiHint: "cloud dashboard graph dark theme"
+    githubUrl: null, // Likely internal documentation
+    tags: ["API Security", "Secure Coding", "Documentation", "REST", "Best Practices"],
+     aiHint: "documentation website api security dark mode"
   },
   {
-    title: "Real-time Chat Application",
-    description: "A web application enabling real-time communication using WebSockets, built with Node.js, Express, and Socket.IO on the backend and React on the frontend.",
-    imageUrl: "https://picsum.photos/seed/chat-app/600/400",
-    liveUrl: "#", // Add live URL if deployed
-    githubUrl: "https://github.com/revanthmatte/realtime-chat", // Replace with actual repo
-    tags: ["Node.js", "Express", "React", "WebSockets", "Socket.IO"],
-    aiHint: "chat application interface dark mode"
+    title: "Portfolio Website (This Site)",
+    description: "Personal portfolio website built with Next.js, Tailwind CSS, and ShadCN UI to showcase skills, experience, and projects in software development and cybersecurity.",
+    imageUrl: "https://picsum.photos/seed/portfolio-site/600/400",
+    liveUrl: "#", // Replace with actual URL if deployed
+    githubUrl: "https://github.com/revanthmatte/portfolio", // Replace if needed
+    tags: ["Next.js", "React", "Tailwind CSS", "ShadCN UI", "TypeScript", "Portfolio"],
+    aiHint: "website portfolio dark theme browser screenshot"
   },
    {
-    title: "E-commerce API",
-    description: "A RESTful API backend for an e-commerce platform using Django REST Framework, featuring product management, user authentication, and order processing.",
-    imageUrl: "https://picsum.photos/seed/ecommerce-api/600/400",
+    title: "Network Traffic Anomaly Detection",
+    description: "Utilized Snort IDS and Wireshark during an internship to monitor network traffic, analyze logs, and identify potential application-layer attacks or anomalies, contributing to threat detection efforts.",
+    imageUrl: "https://picsum.photos/seed/ids-project/600/400",
     liveUrl: null,
-    githubUrl: "https://github.com/revanthmatte/ecommerce-api", // Replace with actual repo
-    tags: ["Python", "Django", "Django REST Framework", "PostgreSQL", "API"],
-    aiHint: "api code documentation dark theme"
+    githubUrl: null, // Likely internship project/work
+    tags: ["Snort", "Wireshark", "IDS", "Network Security", "Log Analysis", "Threat Detection"],
+    aiHint: "network graph security dashboard dark theme"
   },
 ];
 
@@ -56,7 +56,7 @@ export default function ProjectShowcase() {
         ))}
       </div>
        <p className="text-sm text-muted-foreground text-center mt-4">
-         More projects available on GitHub.
+         More project details available upon request.
        </p>
     </div>
   );
