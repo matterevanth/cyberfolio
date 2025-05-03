@@ -197,7 +197,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Cybersecurity Professional and Ethical Hacker', // Updated Headline
+    headline: 'Cybersecurity Professional | Ethical Hacker', // Updated Headline
     expertise: [ // Added expertise
         "Web Application Security",
         "Penetration Testing",
@@ -207,8 +207,8 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         "Ethical Hacking", // Added Ethical Hacking
     ],
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    // Grammar checked, expertise keywords woven in, fixed spelling
-    about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners, enabling thorough vulnerability analysis and threat hunting. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities, including web application security and source code review.',
+    // Updated About Me section
+    about: 'A passionate cybersecurity professional 🔐 who started with a strong foundation in system and network security, diving deep into the world of vulnerabilities, exploits, and defenses. I began my journey in security operations—analyzing threats, triaging incidents, and monitoring systems in real time to keep organizations safe from evolving threats 🛡️. Over time, I expanded into offensive security, mastering web and API penetration testing, vulnerability assessments, and red team simulations. Using tools like Burp Suite, Nessus, and Wireshark, and scripting with Python ⚙️, I’ve identified critical flaws, bypassed hardened defenses, and helped strengthen overall security posture. My projects span everything from bypassing WAFs 🔓 to automating threat detection across hybrid environments. Currently pursuing my OSCP and HTB CDSA certifications 📚, I continue to hone both red and blue team skills—bridging the gap between adversary simulation and proactive defense. My Master\'s in Cybersecurity from the University of Maryland 🎓 has deepened my understanding of secure architectures, IAM, and incident response methodologies. Whether it\'s protecting cloud infrastructure, dissecting phishing campaigns, or reverse-engineering threats 🧠, I bring curiosity, precision, and drive to every engagement—turning complex problems into practical, secure solutions 🚀.',
     experiences: [
        {
         title: 'Application Security Analyst',
@@ -305,7 +305,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         {
             title: "Securing a Cloud-based Healthcare Application",
             description: "• Strengthened IAM policies and access controls, reducing excessive permissions by 40% and mitigating vulnerabilities.\n• Implemented robust encryption protocols for databases and file storage, achieving compliance and reducing data vulnerability by 70%.\n• Elevated logging and monitoring capabilities, reducing incident response time by 25%.",
-            imageUrl: "https://picsum.photos/seed/healthcare-sec/600/400",
+            imageUrl: "https://picsum.photos/seed/gcp-cloud/600/400", // Updated Seed for GCP image
             date: "Nov 2023",
             tags: ["AWS Security", "IAM", "S3", "Encryption", "Cloud Security", "Healthcare", "GCP"], // Added GCP tag
             aiHint: "gcp cloud security dark mode" // Updated AI Hint
@@ -313,7 +313,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         {
             title: "Security Workflow Automation",
             description: "• Wrote Python scripts to detect OWASP issues like reflected XSS, missing headers, and insecure cookies.\n• Integrated checks into CI/CD pipelines, reducing triage time and false positives.\n• Enabled repeatable validation of controls across staging environments.",
-            imageUrl: "https://picsum.photos/seed/sec-automation/600/400",
+            imageUrl: "https://picsum.photos/seed/python-code/600/400", // Updated Seed for Python image
             date: "May 2023",
             tags: ["Python", "Automation", "CI/CD", "OWASP", "Security Testing", "Scripting"],
             aiHint: "python language code terminal dark theme" // Updated AI Hint
@@ -321,7 +321,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         {
             title: "Lab Rats Medicare Network: Fortifying Security Systems",
             description: "• Enforced Multi-Factor Authentication (MFA) for users.\n• Deployed state-of-the-art Intrusion Detection Systems (IDS) and reinforced firewalls, achieving a 60% reduction in successful cyber attacks.\n• Augmented with security software like Carbon Black for endpoint detection and Ivanti for application control.",
-            imageUrl: "https://picsum.photos/seed/lab-rats-sec/600/400",
+            imageUrl: "https://picsum.photos/seed/network-arch/600/400", // Updated Seed for Network image
             date: "Apr 2023",
             tags: ["Infrastructure Security", "MFA", "IDS", "Firewall", "Endpoint Security", "Vulnerability Assessment"],
             aiHint: "network architecture diagram dark theme" // Updated AI Hint
@@ -329,3 +329,5 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
     ],
   };
 }
+
+    
