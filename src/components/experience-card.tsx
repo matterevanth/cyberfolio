@@ -1,13 +1,20 @@
 import type { Experience } from '@/services/linkedin';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CalendarDays, Building, Zap } from 'lucide-react';
+import { CalendarDays, Building, Zap, ChevronRight } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { cn } from '@/lib/utils';
 
 interface ExperienceCardProps {
   experience: Experience;
+  index: number; // Add index for unique accordion item value
 }
 
-export default function ExperienceCard({ experience }: ExperienceCardProps) {
+export default function ExperienceCard({ experience, index }: ExperienceCardProps) {
   const formatDate = (dateString?: string): string => {
     if (!dateString || dateString.toLowerCase() === 'present') return 'Present';
     try {
@@ -37,10 +44,9 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
   // Split description into bullet points if it contains '•' or '\n•'
   const descriptionPoints = experience.description?.split(/\n?•\s?/).map(line => line.trim()).filter(line => line); // Handles both '•' and '\n•', trims, removes empty lines
-
-
   const hasBulletPoints = descriptionPoints && descriptionPoints.length > 0 && experience.description?.includes('•');
 
+  const accordionValue = `item-${index}`; // Unique value for each accordion item
 
   return (
     // Terminal card style: transparent bg, no border/shadow, no padding
@@ -61,35 +67,51 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
               <span>{experience.company}</span>
           </div>
 
-
         {experience.skills && experience.skills.length > 0 && (
           <div className="mb-2 flex flex-wrap gap-1 items-center text-xs text-muted-foreground">
              <Zap className="h-3 w-3 mr-1 text-primary/80" /> {/* Skills Icon */}
-            {experience.skills.map((skill, index) => (
+            {experience.skills.map((skill, skillIndex) => (
               // Terminal badge style
-              <Badge key={index} variant="secondary" className="badge-terminal text-[10px] leading-tight">
+              <Badge key={skillIndex} variant="secondary" className="badge-terminal text-[10px] leading-tight">
                 {skill}
               </Badge>
             ))}
           </div>
         )}
       </div>
-      <div className="pb-0 px-0 text-sm text-foreground/80 leading-normal"> {/* Content area */}
-         {hasBulletPoints ? (
-           // Terminal list style: '>' prefix, muted foreground
-           <ul className="list-none space-y-1 pl-0 mt-1">
-             {descriptionPoints.map((point, index) => (
-               <li key={index} className="flex items-start">
-                 <span className="mr-1.5 text-primary">{'>'}</span> {/* Terminal prompt style */}
-                 <span className="text-muted-foreground">{point}</span>
-               </li>
-             ))}
-           </ul>
-         ) : (
-            // Single paragraph: muted foreground
-            <p className="mt-1 text-muted-foreground">{experience.description}</p>
-         )}
-      </div>
+
+       {/* Accordion for Responsibilities */}
+       {experience.description && (
+           <Accordion type="single" collapsible className="w-full">
+             <AccordionItem value={accordionValue} className="border-none p-0">
+               <AccordionTrigger className={cn(
+                   "flex items-center justify-start text-xs text-muted-foreground hover:text-foreground hover:no-underline p-0 py-1",
+                   // Remove default chevron and padding
+                   "[&>svg]:hidden"
+               )}>
+                 <ChevronRight className="h-3 w-3 mr-1.5 transition-transform duration-200 group-data-[state=open]:rotate-90" />
+                 <span>Responsibilities</span>
+               </AccordionTrigger>
+               <AccordionContent className="pb-0 px-0 text-sm text-foreground/80 leading-normal pt-2 pl-4">
+                 {hasBulletPoints ? (
+                   // Terminal list style: '>' prefix, muted foreground
+                   <ul className="list-none space-y-1 pl-0 mt-1">
+                     {descriptionPoints.map((point, pointIndex) => (
+                       <li key={pointIndex} className="flex items-start">
+                         <span className="mr-1.5 text-primary">{'>'}</span> {/* Terminal prompt style */}
+                         <span className="text-muted-foreground">{point}</span>
+                       </li>
+                     ))}
+                   </ul>
+                 ) : (
+                    // Single paragraph: muted foreground
+                    <p className="mt-1 text-muted-foreground">{experience.description}</p>
+                 )}
+               </AccordionContent>
+             </AccordionItem>
+           </Accordion>
+       )}
+
     </div>
   );
 }

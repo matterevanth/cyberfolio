@@ -40,14 +40,15 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               <span className={cn(
                   "absolute -left-[0.6rem] flex h-4 w-4 items-center justify-center border border-primary ring-2 ring-background", // Smaller, border, ring
                   index === 0 ? "bg-primary" : "bg-muted", // Highlight current/latest job
-                  "rounded-sm" // Square-ish
+                  "rounded-sm animate-pulse duration-1000 delay-100" // Added pulse animation
               )}>
                  <Briefcase className={cn("h-2 w-2", index === 0 ? "text-primary-foreground": "text-primary")} />
               </span>
 
               {/* Experience Card - Positioned to the right of the line */}
               <div className="ml-4"> {/* Keep margin */}
-                <ExperienceCard experience={exp} />
+                 {/* Pass index to ExperienceCard */}
+                <ExperienceCard experience={exp} index={index} />
               </div>
             </div>
           ))

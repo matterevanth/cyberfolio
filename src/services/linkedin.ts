@@ -148,7 +148,7 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Software Engineer | Full Stack Developer | Cybersecurity Enthusiast',
+    headline: 'Cybersecurity Professional & Penetration Tester', // Updated Headline
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
     about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities.',
     experiences: [

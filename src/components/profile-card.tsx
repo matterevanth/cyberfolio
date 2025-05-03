@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from 'next/image';
 import { Separator } from '../ui/separator'; // Added Separator
+import TypingEffect from './typing-effect'; // Import TypingEffect
 
 interface ProfileCardProps {
   profile: LinkedInProfile;
@@ -42,7 +43,12 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
        <div className="space-y-2 pt-2 md:pt-0 w-full mt-4">
           {/* Use foreground for title, muted-foreground for text */}
           <h2 className="text-lg font-semibold text-foreground mb-1">About Me:</h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">{profile.about || "Cybersecurity professional and Software Engineer."}</p>
+           {/* Use TypingEffect for the about text */}
+           <TypingEffect
+              text={profile.about || "Cybersecurity professional and Software Engineer."}
+              className="text-sm text-muted-foreground leading-relaxed"
+              cursorClassName="text-primary" // Style the cursor
+            />
        </div>
     </div>
   );
