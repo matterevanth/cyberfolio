@@ -26,6 +26,10 @@ export interface LinkedInProfile {
    * The list of educations of the person.
    */
   educations: Education[];
+  /**
+  * The structured skills of the person.
+  */
+  skills: Skills;
 }
 
 /**
@@ -88,6 +92,19 @@ export interface Education {
   description?: string; // Made description optional
 }
 
+/**
+ * Represents structured skills categorized.
+ */
+export interface Skills {
+  Tools: string[];
+  Frameworks: string[];
+  CodeAnalysis: string[];
+  Cloud: string[];
+  OperatingSystems: string[];
+  Programming: string[];
+}
+
+
 // Helper function to parse date string like "Month YYYY" or "Present" to "YYYY-MM" or "Present"
 const parseExperienceDate = (dateString: string): string => {
   if (dateString.toLowerCase() === 'present') {
@@ -95,11 +112,23 @@ const parseExperienceDate = (dateString: string): string => {
   }
   try {
     const [month, year] = dateString.split(' ');
-    const monthIndex = new Date(Date.parse(month +" 1, 2012")).getMonth() + 1; // Get month number (1-12)
-    return `${year}-${monthIndex.toString().padStart(2, '0')}`;
+    // Simple mapping for month names to numbers
+    const monthMap: { [key: string]: number } = {
+      Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6,
+      Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12
+    };
+    const monthNumber = monthMap[month];
+    if (!monthNumber || !year || !/^\d{4}$/.test(year)) {
+         throw new Error(`Invalid date format: ${dateString}`);
+    }
+    return `${year}-${monthNumber.toString().padStart(2, '0')}`;
   } catch (e) {
-    console.warn(`Could not parse date: ${dateString}`);
-    return dateString; // Return original if parsing fails
+    console.warn(`Could not parse date: ${dateString}. Error: ${e}`);
+    // Try parsing YYYY-MM directly
+    if (/^\d{4}-\d{2}$/.test(dateString)) {
+      return dateString;
+    }
+    return dateString; // Return original if parsing fails completely
   }
 };
 
@@ -119,15 +148,14 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Software Engineer | Full Stack Developer | Cybersecurity Enthusiast', // Kept headline as before, user summary is in about
-    // Placeholder image - replace with actual if available
+    headline: 'Software Engineer | Full Stack Developer | Cybersecurity Enthusiast',
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities.', // Updated about section from SUMMARY
+    about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities.',
     experiences: [
        {
         title: 'Application Security Analyst',
         company: 'Dream Studio',
-        startDate: parseExperienceDate('Sept 2024'),
+        startDate: parseExperienceDate('Sep 2024'),
         endDate: parseExperienceDate('Present'),
         skills: ['Python', 'Flask', 'Git', 'OWASP ZAP'],
         location: 'Remote', // Included as per resume but will be omitted in display if needed
@@ -165,12 +193,12 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         company: 'Verzeo',
         startDate: parseExperienceDate('Jan 2021'),
         endDate: parseExperienceDate('Mar 2021'),
-        skills: ['OpenVAS', 'Nmap', 'API Security'], // Corrected OpenVASNmap
+        skills: ['OpenVAS', 'Nmap', 'API Security'], // Corrected typo from OpenVASNmap
         location: 'Remote',
         description: '• Performed reconnaissance and vulnerability scans to map exposed services and weak configurations in web-facing systems.\n• Tested REST APIs for injection flaws and access control issues using Burp Suite Intruder and custom fuzzing payloads.\n• Documented vulnerabilities with CVSS-based risk ratings and remediation guidance tailored to application-layer risks.',
       },
     ],
-    educations: [ // Keeping education as previously updated
+    educations: [
        {
         school: 'University of Maryland College Park',
         degree: "Master of Engineering in Cybersecurity",
@@ -186,5 +214,19 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         description: 'Developed a strong foundation in computer science principles, data structures, algorithms, and software development. Participated in coding competitions and tech fests.',
       },
     ],
+    skills: {
+        Tools: [
+            "Tenable Nessus", "Burp Suite", "Splunk", "Wireshark", "Nmap", "Veracode",
+            "OpenVAS", "Mimikatz", "VirusTotal", "Shodan", "SQLmap", "Acunetix", "Nikto", "Office 365"
+        ],
+        Frameworks: [
+            "OWASP Top 10", "CWE", "CVSS", "MITRE ATT&CK", "NIST CSF", "CIS Benchmarks",
+            "PCI-DSS", "HIPAA", "ISO 27001"
+        ],
+        CodeAnalysis: ["Semgrep", "SonarQube", "Git", "VS Code"],
+        Cloud: ["AWS (IAM, S3, EC2, GuardDuty)", "ScoutSuite", "GCP"],
+        OperatingSystems: ["Kali Linux", "Ubuntu", "Parrot OS", "Windows"],
+        Programming: ["Python", "Bash", "PowerShell", "SQL", "C"]
+    }
   };
 }

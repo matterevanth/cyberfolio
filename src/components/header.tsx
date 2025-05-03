@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { Code, Menu } from 'lucide-react'; // Added Menu for potential mobile nav
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'; // For mobile nav drawer
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'; // For mobile nav drawer, Added SheetClose
 import React from 'react';
 
 
 const navItems = [
   { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' }, // Added Skills
   { name: 'Experience', href: '#experience' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Education', href: '#education' }, // Added Education back
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -48,20 +50,23 @@ export default function Header() {
              </SheetTrigger>
              <SheetContent side="right" className="w-[250px] bg-background border-l border-border/40">
                 <div className="flex flex-col space-y-6 p-6 pt-12">
-                    <Link href="/" className="flex items-center space-x-2 mb-4">
-                         <span className="font-bold text-lg text-foreground">
-                           Revanth Matte
-                         </span>
-                    </Link>
+                    {/* Add SheetClose to the logo link */}
+                    <SheetClose asChild>
+                        <Link href="/" className="flex items-center space-x-2 mb-4">
+                            <span className="font-bold text-lg text-foreground">
+                                Revanth Matte
+                            </span>
+                        </Link>
+                    </SheetClose>
                    {navItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
-                        // TODO: Add onClick to close sheet after navigation
-                      >
-                        {item.name}
-                      </Link>
+                       <SheetClose key={item.name} asChild>
+                            <Link
+                                href={item.href}
+                                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                                {item.name}
+                            </Link>
+                       </SheetClose>
                    ))}
                 </div>
              </SheetContent>

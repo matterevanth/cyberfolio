@@ -4,6 +4,7 @@ import ProfileCard from '@/components/profile-card';
 import ExperienceSection from '@/components/experience-section';
 import EducationSection from '@/components/education-section';
 import ProjectShowcase from '@/components/project-showcase';
+import SkillsSection from '@/components/skills-section'; // Import SkillsSection
 import ContactSection from '@/components/contact-section';
 import { Separator } from '@/components/ui/separator';
 import Header from '@/components/header';
@@ -31,6 +32,9 @@ export default async function Home() {
       about: 'Error loading profile information.',
       experiences: [],
       educations: [],
+      skills: { // Add fallback skills object
+        Tools: [], Frameworks: [], CodeAnalysis: [], Cloud: [], OperatingSystems: [], Programming: []
+      }
     };
   }
 
@@ -54,6 +58,14 @@ export default async function Home() {
           <section id="about">
              {/* Ensure displayProfile is passed */}
             <ProfileCard profile={displayProfile} />
+          </section>
+
+          <Separator className="bg-border/50" />
+
+          {/* Skills Section */}
+          <section id="skills">
+             {/* Ensure displayProfile.skills is passed */}
+            <SkillsSection skills={displayProfile.skills} />
           </section>
 
           <Separator className="bg-border/50" />
@@ -91,3 +103,4 @@ export default async function Home() {
     </div>
   );
 }
+

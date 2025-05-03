@@ -8,6 +8,13 @@ interface EducationSectionProps {
 }
 
 export default function EducationSection({ educations }: EducationSectionProps) {
+  // Sort educations by start date, most recent first
+  const sortedEducations = educations.sort((a, b) => {
+    const dateA = new Date(a.startDate);
+    const dateB = new Date(b.startDate);
+    return dateB.getTime() - dateA.getTime();
+  });
+
   return (
      // Removed card styling from the main container
      <div className="space-y-8">
@@ -16,8 +23,8 @@ export default function EducationSection({ educations }: EducationSectionProps) 
         <h2 className="text-2xl font-semibold text-foreground tracking-tight">Education</h2>
       </div>
       <div className="space-y-6">
-        {educations.length > 0 ? (
-          educations.map((edu, index) => (
+        {sortedEducations.length > 0 ? (
+          sortedEducations.map((edu, index) => (
             <EducationCard key={index} education={edu} />
           ))
         ) : (
