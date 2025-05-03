@@ -77,7 +77,7 @@ export interface Education {
   /**
    * The description of the education.
    */
-  description: string;
+  description?: string; // Made description optional
 }
 
 /**
@@ -95,17 +95,17 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Software Engineer | Full Stack Developer',
+    headline: 'Software Engineer | Full Stack Developer | Cybersecurity Enthusiast', // Updated headline
     // Placeholder image - replace with actual if available
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    about: 'Dedicated and skilled Software Engineer with experience in full-stack development, cloud technologies, and building scalable applications. Passionate about problem-solving and creating efficient, user-friendly solutions. Seeking challenging opportunities to leverage technical expertise and contribute to innovative projects.',
+    about: 'Dedicated and skilled Software Engineer with a Master\'s in Cybersecurity and experience in full-stack development, cloud technologies, and building scalable applications. Passionate about problem-solving, security, and creating efficient, user-friendly solutions. Seeking challenging opportunities to leverage technical expertise and contribute to innovative projects.', // Updated about section
     experiences: [
       {
         title: 'Software Engineer',
         company: 'Tech Solutions Inc.', // Example Company
         startDate: '2021-06', // Example Date (YYYY-MM)
         // endDate: 'Present', // Omit for current position
-        description: 'Developed and maintained key features for a large-scale web application using React, Node.js, and AWS. Collaborated with cross-functional teams to define, design, and ship new functionalities. Improved application performance by optimizing database queries and implementing caching strategies.',
+        description: 'Developed and maintained key features for a large-scale web application using React, Node.js, and AWS. Collaborated with cross-functional teams to define, design, and ship new functionalities. Improved application performance by optimizing database queries and implementing caching strategies. Contributed to security reviews and vulnerability assessments.', // Added security aspect
       },
       {
         title: 'Software Development Intern',
@@ -114,21 +114,22 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         endDate: '2020-08', // Example Date (YYYY-MM)
         description: 'Assisted senior engineers in developing backend APIs using Python and Django. Wrote unit tests and participated in code reviews. Gained experience with Agile methodologies and version control systems (Git).',
       },
+      // Add more relevant experiences if needed
     ],
     educations: [
-      {
-        school: 'University of Southern California', // Example University
-        degree: "Master's Degree, Computer Science",
-        startDate: '2019-08', // Example Date (YYYY-MM)
-        endDate: '2021-05', // Example Date (YYYY-MM)
-        description: 'Relevant Coursework: Advanced Algorithms, Distributed Systems, Machine Learning, Database Management. Completed a thesis project on optimizing cloud resource allocation.',
+       {
+        school: 'University of Maryland College Park', // Updated School
+        degree: "Master of Engineering in Cybersecurity", // Updated Degree
+        startDate: '2022-08', // Updated Start Date
+        endDate: '2024-05', // Updated End Date
+        description: 'Focused on network security, ethical hacking, cryptography, and security management. Engaged in hands-on labs and projects simulating real-world cybersecurity scenarios.', // Updated description
       },
       {
-        school: 'State University', // Example University
-        degree: "Bachelor's Degree, Computer Engineering",
-        startDate: '2015-08', // Example Date (YYYY-MM)
-        endDate: '2019-05', // Example Date (YYYY-MM)
-        description: 'Graduated with Honors. Active member of the coding club and participated in several hackathons.',
+        school: 'SRM University', // Updated School
+        degree: "Bachelor of Technology, Computer Science", // Updated Degree
+        startDate: '2018-07', // Updated Start Date
+        endDate: '2022-05', // Updated End Date
+        description: 'Developed a strong foundation in computer science principles, data structures, algorithms, and software development. Participated in coding competitions and tech fests.', // Updated description
       },
     ],
   };
