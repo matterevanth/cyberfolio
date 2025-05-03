@@ -103,24 +103,20 @@ export default function ExperienceCard({ experience, align }: ExperienceCardProp
        {/* Description (Conditionally Rendered) */}
        {hasDescription && isExpanded && (
             <div className={cn(
-                "text-sm text-muted-foreground leading-relaxed space-y-1.5 mt-3 pt-3 border-t border-border/30", // Added top border/padding when expanded
-                // Align description text based on the align prop
-                 align === 'right' ? 'md:text-right' : 'md:text-left'
+                "text-sm text-muted-foreground leading-relaxed space-y-1.5 mt-3 pt-3 border-t border-border/30",
+                // Force description text to always align left
+                 "text-left"
             )}>
               {hasBulletPoints ? (
                  // Terminal list style: '>' prefix, muted foreground
                 <ul className={cn(
-                    "list-none space-y-1.5", // Removed pl-0 as alignment handles it
-                    // Align list items based on the align prop
-                    align === 'right' ? 'md:pl-0 md:pr-4' : 'md:pr-0 md:pl-4' // Adjust padding for alignment
+                    "list-none space-y-1.5 pl-0" // Ensure no extra padding
                 )}>
                    {descriptionPoints.map((point, pointIndex) => (
                     <li key={pointIndex} className={cn(
-                        "flex items-start",
-                        // Align bullet points based on the align prop
-                         align === 'right' ? 'md:justify-end md:flex-row-reverse' : 'md:justify-start md:flex-row'
+                        "flex items-start justify-start flex-row" // Force left alignment and row layout
                          )}>
-                      <span className={cn("text-accent/80", align === 'right' ? 'ml-1.5' : 'mr-1.5')}>•</span> {/* Use bullet point */}
+                      <span className={cn("text-accent/80 mr-1.5")}>•</span> {/* Use bullet point, always on left */}
                       <span>{point}</span>
                     </li>
                    ))}
