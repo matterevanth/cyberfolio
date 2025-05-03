@@ -7,7 +7,7 @@ export default function ContactSection() {
   const contact = {
     email: "revanth.matte@example.com", // Placeholder Email
     linkedin: "https://www.linkedin.com/in/revanth-matte/", // Keep or update LinkedIn
-    github: "https://github.com/revanthmatte", // Placeholder GitHub
+    github: "https://github.com/matterevanth", // Updated GitHub link
     resumeUrl: "/revanth-matte-resume.pdf", // Placeholder link to your resume PDF in public folder
   };
 

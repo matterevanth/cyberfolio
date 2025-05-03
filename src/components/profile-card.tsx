@@ -31,7 +31,7 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
            <AvatarImage
              src={profile.profilePictureUrl}
              alt={profile.fullName}
-             data-ai-hint="profile picture professional dark background"
+             data-ai-hint="profile picture professional dark background hacker" // Updated AI hint
              className="rounded-none" // Ensure image inside is square
            />
            <AvatarFallback className="text-3xl bg-muted rounded-none">{initials}</AvatarFallback>
@@ -70,5 +70,3 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
     </div>
   );
 }
-
-    

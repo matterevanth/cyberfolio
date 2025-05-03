@@ -197,16 +197,17 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Cybersecurity Professional and Penetration Tester', // Updated Headline
+    headline: 'Cybersecurity Professional and Ethical Hacker', // Updated Headline
     expertise: [ // Added expertise
         "Web Application Security",
         "Penetration Testing",
         "Source Code Review",
         "Vulnerability Analysis",
         "Threat Hunting",
+        "Ethical Hacking", // Added Ethical Hacking
     ],
     profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
-    // Grammar checked, expertise keywords woven in where appropriate without changing core meaning.
+    // Grammar checked, expertise keywords woven in, fixed spelling
     about: 'Cybersecurity professional with a strong focus on application security, penetration testing, and secure development practices. Highly motivated, technically curious, and collaborative in working with engineering teams to embed security into the SDLC. Proficient in Python scripting on Linux systems and experienced with tools like Burp Suite, OWASP ZAP, and custom security scanners, enabling thorough vulnerability analysis and threat hunting. Familiar with AWS environments and actively pursuing OSCP to strengthen offensive security capabilities, including web application security and source code review.',
     experiences: [
        {
@@ -286,47 +287,45 @@ export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInPr
         OperatingSystems: ["Kali Linux", "Ubuntu", "Parrot OS", "Windows"],
         Programming: ["Python", "Bash", "PowerShell", "SQL", "C"]
     },
-    certifications: [ // Added Certifications
+    certifications: [ // Updated Certifications list
         { name: "Certified Ethical Hacker (CEH)", organization: "EC-Council" },
-        { name: "Malware Analysis & Reverse Engineering (MCRTA)", organization: "CyberWarfare Labs" },
-        { name: "eLearnSecurity Junior Penetration Tester (eJPT)", organization: "INE" },
+        { name: "Multi-Cloud Red Team Analyst (MCRTA)", organization: "CyberWarfare Labs" }, // Updated MCRTA
+        { name: "eLearnSecurity Junior Penetration Tester (eJPT)", organization: "INE" }, // Updated eJPT
         { name: "Practical Ethical Hacking (PEH)", organization: "TCM Security" },
     ],
     projects: [ // Moved Projects here
         {
             title: "MaskedDJ Penetration Testing",
-            description: "Assessed the security posture of MaskedDJ’s hybrid environment, identifying critical risks including S3 bucket misconfigurations and local privilege escalation vulnerabilities. Exploited an unpatched Windows 7 system to gain domain access and extract sensitive credentials stored in KeePass, exposing insecure credential management. Recommended technical controls including IAM hardening, patch policy enforcement, and Active Directory logging enhancements to mitigate identified risks.",
+            description: "• Assessed the security posture of MaskedDJ’s hybrid environment, identifying critical risks including S3 bucket misconfigurations and local privilege escalation vulnerabilities.\n• Exploited an unpatched Windows 7 system to gain domain access and extract sensitive credentials stored in KeePass, exposing insecure credential management.\n• Recommended technical controls including IAM hardening, patch policy enforcement, and Active Directory logging enhancements to mitigate identified risks.",
             imageUrl: "https://picsum.photos/seed/masked-dj-pentest/600/400",
             date: "Mar 2024",
             tags: ["Penetration Testing", "Vulnerability Assessment", "AWS S3", "Active Directory", "Privilege Escalation"],
-            aiHint: "security penetration testing report dark theme"
+            aiHint: "penetration testing dark theme" // Updated AI Hint
         },
         {
             title: "Securing a Cloud-based Healthcare Application",
-            description: "Strengthened IAM policies and access controls, reducing excessive permissions by 40% and mitigating vulnerabilities. Implemented robust encryption protocols for databases and file storage, achieving compliance and reducing data vulnerability by 70%. Elevated logging and monitoring capabilities, reducing incident response time by 25%.",
+            description: "• Strengthened IAM policies and access controls, reducing excessive permissions by 40% and mitigating vulnerabilities.\n• Implemented robust encryption protocols for databases and file storage, achieving compliance and reducing data vulnerability by 70%.\n• Elevated logging and monitoring capabilities, reducing incident response time by 25%.",
             imageUrl: "https://picsum.photos/seed/healthcare-sec/600/400",
             date: "Nov 2023",
-            tags: ["AWS Security", "IAM", "S3", "Encryption", "Cloud Security", "Healthcare"],
-            aiHint: "cloud security dashboard healthcare dark mode"
+            tags: ["AWS Security", "IAM", "S3", "Encryption", "Cloud Security", "Healthcare", "GCP"], // Added GCP tag
+            aiHint: "gcp cloud security dark mode" // Updated AI Hint
         },
         {
             title: "Security Workflow Automation",
-            description: "Wrote Python scripts to detect OWASP issues like reflected XSS, missing headers, and insecure cookies. Integrated checks into CI/CD pipelines, reducing triage time and false positives. Enabled repeatable validation of controls across staging environments.",
+            description: "• Wrote Python scripts to detect OWASP issues like reflected XSS, missing headers, and insecure cookies.\n• Integrated checks into CI/CD pipelines, reducing triage time and false positives.\n• Enabled repeatable validation of controls across staging environments.",
             imageUrl: "https://picsum.photos/seed/sec-automation/600/400",
             date: "May 2023",
             tags: ["Python", "Automation", "CI/CD", "OWASP", "Security Testing", "Scripting"],
-            aiHint: "python script code terminal automation dark theme"
+            aiHint: "python language code terminal dark theme" // Updated AI Hint
         },
         {
             title: "Lab Rats Medicare Network: Fortifying Security Systems",
-            description: "Enforced Multi-Factor Authentication (MFA) for users. Deployed state-of-the-art Intrusion Detection Systems (IDS) and reinforced firewalls, achieving a 60% reduction in successful cyber attacks. Augmented with security software like Carbon Black for endpoint detection and Ivanti for application control.",
+            description: "• Enforced Multi-Factor Authentication (MFA) for users.\n• Deployed state-of-the-art Intrusion Detection Systems (IDS) and reinforced firewalls, achieving a 60% reduction in successful cyber attacks.\n• Augmented with security software like Carbon Black for endpoint detection and Ivanti for application control.",
             imageUrl: "https://picsum.photos/seed/lab-rats-sec/600/400",
             date: "Apr 2023",
             tags: ["Infrastructure Security", "MFA", "IDS", "Firewall", "Endpoint Security", "Vulnerability Assessment"],
-            aiHint: "network security diagram infrastructure dark theme"
+            aiHint: "network architecture diagram dark theme" // Updated AI Hint
         },
     ],
   };
 }
-
-    
