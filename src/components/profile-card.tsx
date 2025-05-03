@@ -69,7 +69,7 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
             </h2>
            {/* Use TypingEffect for the about text - Added space */}
            <TypingEffect
-              text={profile.about || "passionate cybersecurity professional and Software Engineer."} // Removed leading 'A '
+              text={profile.about || "A passionate cybersecurity professional and Software Engineer."} // Removed leading 'A '
               className="text-sm text-muted-foreground leading-relaxed pl-4" // Indent text
               cursorClassName="text-primary" // Style the cursor
               speed={15} // Slightly faster typing
