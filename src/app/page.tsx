@@ -23,13 +23,13 @@ export default async function Home() {
     console.error('Error fetching profile data (using hardcoded):', err);
     // In a real scenario, you might set an error state here.
     // Since data is hardcoded, we expect it to succeed unless the service itself errors.
-    error = 'Failed to load profile data. Please try again later.';
+    error = '// Error loading profile data. Please check connection or try again later.';
     // Provide minimal fallback if even hardcoded fails
     profile = {
       fullName: 'Revanth Matte',
       headline: 'Software Engineer | Cybersecurity',
       profilePictureUrl: 'https://picsum.photos/seed/revanth-error/200/200',
-      about: 'Error loading profile information.',
+      about: '// Error loading profile information.',
       experiences: [],
       educations: [],
       skills: { // Add fallback skills object
@@ -45,15 +45,18 @@ export default async function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Header />
-      <main className="container mx-auto flex-grow max-w-4xl p-4 pt-16 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+      {/* Terminal main container: adjusted padding */}
+      <main className="container mx-auto flex-grow max-w-3xl p-4 pt-8 md:p-6 md:pt-10 lg:p-8 lg:pt-12">
         {error && (
-          <div className="mb-12 rounded-md border border-destructive bg-destructive/10 p-4 text-destructive">
+          // Terminal error style: Use destructive text color
+          <div className="mb-8 rounded-none border border-destructive p-3 text-destructive text-sm">
             {error}
           </div>
         )}
 
         {/* Single Column Layout */}
-        <div className="flex flex-col space-y-16 md:space-y-20 lg:space-y-24">
+        {/* Terminal layout: reduced vertical spacing */}
+        <div className="flex flex-col space-y-10 md:space-y-12 lg:space-y-14">
           {/* Profile Section */}
           <section id="about">
              {/* Ensure displayProfile is passed */}
@@ -65,6 +68,7 @@ export default async function Home() {
              <ContactSection />
            </section>
 
+          {/* Separator: Muted border */}
           <Separator className="bg-border/50" />
 
           {/* Skills Section */}
@@ -73,6 +77,7 @@ export default async function Home() {
             <SkillsSection skills={displayProfile.skills} />
           </section>
 
+          {/* Separator: Muted border */}
           <Separator className="bg-border/50" />
 
           {/* Experience Section */}
@@ -81,6 +86,7 @@ export default async function Home() {
             <ExperienceSection experiences={displayProfile.experiences} />
           </section>
 
+          {/* Separator: Muted border */}
           <Separator className="bg-border/50" />
 
           {/* Project Showcase Section */}
@@ -88,6 +94,7 @@ export default async function Home() {
             <ProjectShowcase />
           </section>
 
+          {/* Separator: Muted border */}
           <Separator className="bg-border/50" />
 
           {/* Education Section */}
@@ -95,8 +102,6 @@ export default async function Home() {
             {/* Ensure displayProfile.educations is passed */}
             <EducationSection educations={displayProfile.educations} />
            </section>
-
-           {/* Separator removed from here as Contact is moved up */}
 
         </div>
       </main>

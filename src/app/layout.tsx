@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
+// Removed GeistSans import
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"; // Import Toaster
 
@@ -14,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} dark`}> {/* Add dark class */}
-      <body className={`antialiased font-sans bg-background text-foreground`}>
+    // Removed GeistSans variable from className
+    <html lang="en" className="dark"> {/* Ensure dark class remains */}
+      {/* Removed font-sans class, body font is set in globals.css */}
+      <body className="antialiased bg-background text-foreground">
         {children}
         <Toaster /> {/* Add Toaster component */}
       </body>

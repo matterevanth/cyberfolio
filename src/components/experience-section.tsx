@@ -10,38 +10,50 @@ interface ExperienceSectionProps {
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   // Sort experiences by start date, most recent first
   const sortedExperiences = experiences.sort((a, b) => {
-    const dateA = a.startDate === 'Present' ? new Date() : new Date(a.startDate);
-    const dateB = b.startDate === 'Present' ? new Date() : new Date(b.startDate);
+    // Handle 'Present' case by setting it to a very future date for sorting
+    const dateAString = a.startDate?.replace('Present', '9999-12');
+    const dateBString = b.startDate?.replace('Present', '9999-12');
+
+    // Ensure dates are valid before creating Date objects
+    // Basic check for YYYY-MM format
+    const isValidDateString = (ds: string | undefined) => ds && /^\d{4}-\d{2}$/.test(ds);
+
+    const dateA = isValidDateString(dateAString) ? new Date(dateAString + '-01') : new Date(0); // Use day 01, fallback to epoch start
+    const dateB = isValidDateString(dateBString) ? new Date(dateBString + '-01') : new Date(0); // Use day 01, fallback to epoch start
+
     return dateB.getTime() - dateA.getTime();
   });
 
+
   return (
-    <div className="space-y-8">
-      <div className="flex items-center gap-3 mb-8"> {/* Increased bottom margin */}
-         <Briefcase className="h-6 w-6 text-primary" />
-        <h2 className="text-2xl font-semibold text-foreground tracking-tight">Work Experience</h2>
+    <div className="space-y-6"> {/* Reduced spacing */}
+      <div className="flex items-center gap-2 mb-6"> {/* Reduced bottom margin */}
+         <Briefcase className="h-5 w-5 text-primary" />
+        <h2 className="text-xl font-semibold text-foreground tracking-tight">Work Experience:</h2>
       </div>
-      <div className="relative pl-6 border-l-2 border-border/30 ml-3"> {/* Timeline line with padding */}
+      {/* Terminal timeline: Use border color, adjust padding/margin */}
+      <div className="relative pl-5 border-l border-border/70 ml-2"> {/* Adjusted padding/margin */}
         {sortedExperiences.length > 0 ? (
           sortedExperiences.map((exp, index) => (
-            <div key={index} className="mb-10 last:mb-0"> {/* Spacing between timeline items */}
-              {/* Timeline Dot */}
+            <div key={index} className="mb-8 last:mb-0"> {/* Spacing between timeline items */}
+              {/* Terminal Timeline Dot: Smaller, square-ish, different colors */}
               <span className={cn(
-                  "absolute -left-[0.87rem] flex h-6 w-6 items-center justify-center rounded-full ring-4 ring-background",
-                  index === 0 ? "bg-primary" : "bg-muted border border-primary/30" // Highlight current/latest job
+                  "absolute -left-[0.6rem] flex h-4 w-4 items-center justify-center border border-primary ring-2 ring-background", // Smaller, border, ring
+                  index === 0 ? "bg-primary" : "bg-muted", // Highlight current/latest job
+                  "rounded-sm" // Square-ish
               )}>
-                 <Briefcase className={cn("h-3 w-3", index === 0 ? "text-primary-foreground": "text-primary")} />
+                 <Briefcase className={cn("h-2 w-2", index === 0 ? "text-primary-foreground": "text-primary")} />
               </span>
 
               {/* Experience Card - Positioned to the right of the line */}
-              <div className="ml-4"> {/* Adjust margin if needed */}
+              <div className="ml-4"> {/* Keep margin */}
                 <ExperienceCard experience={exp} />
               </div>
             </div>
           ))
         ) : (
            <div className="pl-4"> {/* Indent fallback message */}
-              <p className="text-muted-foreground">Experience information is currently being updated.</p>
+              <p className="text-muted-foreground text-sm">// Experience information loading...</p>
            </div>
         )}
       </div>

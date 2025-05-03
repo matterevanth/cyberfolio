@@ -12,26 +12,29 @@ export default function ContactSection() {
   };
 
   return (
-     // Simplified div structure for horizontal layout, reduced spacing
-    <div className="mt-6 mb-8">
-      <div className="flex flex-wrap justify-start items-center gap-3">
-         <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+    <div className="mt-4 mb-6"> {/* Adjusted margins */}
+      <div className="flex flex-wrap justify-start items-center gap-2"> {/* Reduced gap */}
+         {/* Apply terminal button style */}
+         <Button asChild variant="outline" size="sm" className="button-terminal text-xs px-3 py-1 h-auto">
             <a href={`mailto:${contact.email}`} target="_blank" rel="noopener noreferrer">
               <Mail className="mr-1.5 h-3.5 w-3.5" /> Email
             </a>
          </Button>
-         <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+         {/* Apply terminal button style */}
+         <Button asChild variant="outline" size="sm" className="button-terminal text-xs px-3 py-1 h-auto">
            <Link href={contact.linkedin} target="_blank" rel="noopener noreferrer">
              <Linkedin className="mr-1.5 h-3.5 w-3.5" /> LinkedIn
            </Link>
          </Button>
-         <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+         {/* Apply terminal button style */}
+         <Button asChild variant="outline" size="sm" className="button-terminal text-xs px-3 py-1 h-auto">
             <Link href={contact.github} target="_blank" rel="noopener noreferrer">
               <Github className="mr-1.5 h-3.5 w-3.5" /> GitHub
             </Link>
           </Button>
          {contact.resumeUrl && (
-          <Button asChild variant="outline" size="sm" className="border-border/50 hover:bg-muted/30 hover:text-foreground text-xs px-3 py-1 h-auto">
+          /* Apply terminal button style */
+          <Button asChild variant="outline" size="sm" className="button-terminal text-xs px-3 py-1 h-auto">
              {/* Make sure the resume PDF exists in the /public directory */}
              <Link href={contact.resumeUrl} target="_blank" rel="noopener noreferrer" download="Revanth_Matte_Resume.pdf">
                <FileText className="mr-1.5 h-3.5 w-3.5" /> Resume

@@ -16,28 +16,33 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
     .join('');
 
   return (
-    <div className="flex flex-col items-start gap-6 md:gap-10">
+    // Added profile-card-bg for specific background targeting if needed
+    // Removed gap for tighter layout
+    <div className="flex flex-col items-start profile-card-bg">
       {/* Top section: Avatar, Name, Headline */}
-      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-6 w-full">
-         <Avatar className="h-28 w-28 md:h-32 md:w-32 border-2 border-primary/50 shadow-sm shrink-0">
-           {/* Use next/image for optimization, though URL is external */}
+      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-6 w-full mb-4">
+         {/* Terminal style avatar: square, no shadow, primary border */}
+         <Avatar className="h-24 w-24 md:h-28 md:w-28 border-2 border-primary shadow-none shrink-0 rounded-none">
            <AvatarImage
              src={profile.profilePictureUrl}
              alt={profile.fullName}
              data-ai-hint="profile picture professional dark background"
+             className="rounded-none" // Ensure image inside is square
            />
-           <AvatarFallback className="text-3xl bg-muted">{initials}</AvatarFallback>
+           <AvatarFallback className="text-3xl bg-muted rounded-none">{initials}</AvatarFallback>
          </Avatar>
-         <div className="space-y-1 flex-grow">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{profile.fullName}</h1>
-            <p className="text-lg md:text-xl text-primary font-medium">{profile.headline}</p>
+         <div className="space-y-1 flex-grow mt-2 md:mt-0">
+            {/* Use foreground for name, primary for headline */}
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">{profile.fullName}</h1>
+            <p className="text-base md:text-lg text-primary font-medium">{profile.headline}</p>
          </div>
       </div>
 
-      {/* About Section - Now a separate div below the top section */}
-       <div className="space-y-2 pt-2 md:pt-0 w-full">
-          <h2 className="text-xl font-semibold text-foreground mb-2">About Me</h2>
-          <p className="text-base text-muted-foreground leading-relaxed">{profile.about || "Cybersecurity professional and Software Engineer."}</p>
+      {/* About Section */}
+       <div className="space-y-2 pt-2 md:pt-0 w-full mt-4">
+          {/* Use foreground for title, muted-foreground for text */}
+          <h2 className="text-lg font-semibold text-foreground mb-1">About Me:</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">{profile.about || "Cybersecurity professional and Software Engineer."}</p>
        </div>
     </div>
   );

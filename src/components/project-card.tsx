@@ -21,50 +21,57 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    // Use subtle card styles for dark mode, remove hover scale
-    <Card className="flex flex-col overflow-hidden bg-card border border-border/30 shadow-none transition-colors duration-300 hover:bg-muted/30">
-       <div className="relative h-48 w-full group"> {/* Added group class */}
+    // Terminal card style: remove rounding, shadow; add border; no hover effect
+    <div className="flex flex-col overflow-hidden bg-card border border-border/50 shadow-none rounded-none">
+       {/* Image container */}
+       <div className="relative h-40 w-full group"> {/* Reduced height */}
          <Image
            src={project.imageUrl}
            alt={`${project.title} screenshot`}
            layout="fill"
            objectFit="cover"
            data-ai-hint={project.aiHint || "project technology dark"}
-           className="transition-opacity duration-300 group-hover:opacity-80" // Slightly reduce opacity on hover
+           className="opacity-80" // Slightly dimmed image
          />
-         {/* Removed gradient overlay for a cleaner look */}
        </div>
-      <CardHeader className="pb-3 pt-4 px-4">
-        <CardTitle className="text-lg font-semibold text-foreground">{project.title}</CardTitle>
+      {/* Card Header: Reduced padding */}
+      <div className="pb-2 pt-3 px-3">
+        {/* Title: Foreground color, slightly smaller */}
+        <h3 className="text-base font-semibold text-foreground mb-1.5">{project.title}</h3>
          {project.tags && project.tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-1">
             {project.tags.map((tag, index) => (
-              <Badge key={index} variant="secondary" className="text-xs bg-muted hover:bg-muted/80 text-muted-foreground">
+              // Terminal badge style
+              <Badge key={index} variant="secondary" className="badge-terminal text-[10px] leading-tight">
                 {tag}
               </Badge>
             ))}
           </div>
         )}
-      </CardHeader>
-      <CardContent className="flex-grow pb-4 px-4">
-        <CardDescription className="text-sm text-foreground/80 leading-relaxed">{project.description}</CardDescription>
-      </CardContent>
-      <CardFooter className="flex justify-end gap-2 pt-2 pb-4 px-4">
+      </div>
+      {/* Card Content: Reduced padding, muted foreground */}
+      <div className="flex-grow pb-3 px-3">
+        <p className="text-xs text-muted-foreground leading-normal">{project.description}</p>
+      </div>
+      {/* Card Footer: Apply terminal button styles */}
+      <div className="flex justify-end gap-2 pt-1 pb-3 px-3 border-t border-border/30 mt-auto">
         {project.githubUrl && (
-          <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:bg-muted">
+          // Terminal ghost button style
+          <Button asChild variant="ghost" size="sm" className="button-terminal-ghost text-xs px-2 py-1 h-auto">
             <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Github className="mr-1.5 h-4 w-4" /> Code
+              <Github className="mr-1 h-3.5 w-3.5" /> Code
             </Link>
           </Button>
         )}
         {project.liveUrl && (
-          <Button asChild variant="ghost" size="sm" className="text-accent hover:text-accent-foreground hover:bg-accent/90">
+           // Terminal accent button style
+          <Button asChild variant="outline" size="sm" className="button-terminal-accent text-xs px-2 py-1 h-auto">
              <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-               <ExternalLink className="mr-1.5 h-4 w-4" /> Demo
+               <ExternalLink className="mr-1 h-3.5 w-3.5" /> Demo
              </Link>
           </Button>
         )}
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

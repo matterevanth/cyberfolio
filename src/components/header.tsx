@@ -17,21 +17,23 @@ const navItems = [
 export default function Header() {
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between mx-auto px-4 md:px-8 lg:px-12">
+    // Terminal header style: No blur, solid background, border bottom
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background">
+      <div className="container flex h-14 items-center justify-between mx-auto px-4 md:px-8 lg:px-12">
         <Link href="/" className="flex items-center space-x-2 mr-6">
-           {/* Simple text logo */}
-           <span className="font-bold text-xl text-foreground hover:text-primary transition-colors">
-             Revanth Matte
+           {/* Terminal style logo: foreground color, bold */}
+           <span className="font-bold text-lg text-foreground hover:text-primary transition-colors">
+             Revanth_Matte/>
            </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-4">
            {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
+                // Terminal nav link style: muted foreground, hover foreground
                 className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.name}
@@ -43,18 +45,20 @@ export default function Header() {
         <div className="md:hidden">
           <Sheet>
              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                {/* Terminal ghost button style */}
+                <Button variant="ghost" size="icon" className="button-terminal-ghost text-foreground">
                   <Menu className="h-5 w-5" />
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
              </SheetTrigger>
-             <SheetContent side="right" className="w-[250px] bg-background border-l border-border/40">
-                <div className="flex flex-col space-y-6 p-6 pt-12">
+             {/* Ensure sheet content matches terminal style */}
+             <SheetContent side="right" className="w-[250px] bg-background border-l border-border">
+                <div className="flex flex-col space-y-5 p-6 pt-10">
                     {/* Add SheetClose to the logo link */}
                     <SheetClose asChild>
                         <Link href="/" className="flex items-center space-x-2 mb-4">
-                            <span className="font-bold text-lg text-foreground">
-                                Revanth Matte
+                            <span className="font-bold text-base text-foreground">
+                                Revanth_Matte/>
                             </span>
                         </Link>
                     </SheetClose>

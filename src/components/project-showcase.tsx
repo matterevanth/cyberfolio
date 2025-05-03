@@ -44,19 +44,20 @@ const projects = [
 
 export default function ProjectShowcase() {
   return (
-     // Removed card styling from the main container
-    <div className="space-y-8">
-       <div className="flex items-center gap-3 mb-6">
-         <FolderGit2 className="h-6 w-6 text-primary" />
-        <h2 className="text-2xl font-semibold text-foreground tracking-tight">Projects</h2>
+    <div className="space-y-6"> {/* Reduced spacing */}
+       <div className="flex items-center gap-2 mb-4"> {/* Reduced spacing */}
+         <FolderGit2 className="h-5 w-5 text-primary" />
+        <h2 className="text-xl font-semibold text-foreground tracking-tight">Projects:</h2>
       </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      {/* Terminal grid style: reduced gap */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {projects.map((project, index) => (
           <ProjectCard key={index} project={project} />
         ))}
       </div>
-       <p className="text-sm text-muted-foreground text-center mt-4">
-         More project details available upon request.
+       {/* Terminal style text */}
+       <p className="text-xs text-muted-foreground text-center mt-4">
+         // More project details available upon request.
        </p>
     </div>
   );
