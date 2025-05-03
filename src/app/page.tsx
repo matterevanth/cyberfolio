@@ -1,15 +1,10 @@
 import type { LinkedInProfile } from '@/services/linkedin';
 import { getLinkedInProfile } from '@/services/linkedin';
 import ProfileCard from '@/components/profile-card';
-import ExperienceSection from '@/components/experience-section';
-import EducationSection from '@/components/education-section';
-import ProjectShowcase from '@/components/project-showcase';
 import SkillsSection from '@/components/skills-section';
-import ContactSection from '@/components/contact-section';
-import CertificationsSection from '@/components/certifications-section'; // Import CertificationsSection
+import ContactSection from '@/components/contact-section'; // Keep contact on home for now under profile
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-// Removed TerminalDivider import
 
 export default async function Home() {
   // Update this URL if your LinkedIn profile URL is different (though data is hardcoded now)
@@ -66,14 +61,9 @@ export default async function Home() {
           <section id="about" className="scroll-mt-16">
              {/* Ensure displayProfile is passed */}
             <ProfileCard profile={displayProfile} />
-          </section>
-
-          {/* Contact Section - Moved Under Profile */}
-           <section id="contact" className="scroll-mt-16">
+            {/* Contact Section - Moved Under Profile */}
              <ContactSection />
-           </section>
-
-          {/* Removed Thematic Divider */}
+          </section>
 
            {/* Skills Section */}
           <section id="skills" className="scroll-mt-16">
@@ -81,38 +71,7 @@ export default async function Home() {
             <SkillsSection skills={displayProfile.skills} />
           </section>
 
-          {/* Removed Thematic Divider */}
-
-          {/* Experience Section */}
-          <section id="experience" className="scroll-mt-16">
-             {/* Ensure displayProfile.experiences is passed */}
-            <ExperienceSection experiences={displayProfile.experiences} />
-          </section>
-
-          {/* Removed Thematic Divider */}
-
-          {/* Project Showcase Section */}
-          <section id="projects" className="scroll-mt-16">
-             {/* Pass projects from profile data */}
-             <ProjectShowcase projects={displayProfile.projects} />
-          </section>
-
-          {/* Removed Thematic Divider */}
-
-          {/* Education Section */}
-           <section id="education" className="scroll-mt-16">
-            {/* Ensure displayProfile.educations is passed */}
-            <EducationSection educations={displayProfile.educations} />
-           </section>
-
-           {/* Removed Thematic Divider */}
-
-            {/* Certifications Section */}
-           <section id="certifications" className="scroll-mt-16">
-             {/* Ensure displayProfile.certifications is passed */}
-            <CertificationsSection certifications={displayProfile.certifications} />
-           </section>
-
+          {/* Other sections (Experience, Projects, Education, Certifications) are moved to separate pages */}
 
         </div>
       </main>

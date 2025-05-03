@@ -1,17 +1,17 @@
 import Link from 'next/link';
-import { Code, Menu } from 'lucide-react'; // Added Menu for potential mobile nav
+import { Menu } from 'lucide-react'; // Removed Code icon, kept Menu
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet'; // For mobile nav drawer, Added SheetClose
 import React from 'react';
 
 
 const navItems = [
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' }, // Added Skills
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Education', href: '#education' }, // Added Education back
-  { name: 'Contact', href: '#contact' },
+  { name: 'About', href: '/' }, // Changed href to root for About/Home
+  { name: 'Skills', href: '/' }, // Skills are on the homepage
+  { name: 'Experience', href: '/experience' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'Education', href: '/education' }, // Combined Education & Certs
+  { name: 'Contact', href: '/contact' }, // Changed href
 ];
 
 export default function Header() {
@@ -23,7 +23,7 @@ export default function Header() {
         <Link href="/" className="flex items-center space-x-2 mr-6">
            {/* Terminal style logo: foreground color, bold */}
            <span className="font-bold text-lg text-foreground hover:text-primary transition-colors">
-             Revanth_Matte/>
+             Revanth_Matte/&gt;
            </span>
         </Link>
 
@@ -58,7 +58,7 @@ export default function Header() {
                     <SheetClose asChild>
                         <Link href="/" className="flex items-center space-x-2 mb-4">
                             <span className="font-bold text-base text-foreground">
-                                Revanth_Matte/>
+                                Revanth_Matte/&gt;
                             </span>
                         </Link>
                     </SheetClose>
