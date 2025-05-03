@@ -2,43 +2,43 @@ import ProjectCard from './project-card';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Code, FolderGit2 } from 'lucide-react';
 
-// Placeholder project data - replace with your actual projects
+// Placeholder project data - replace with Revanth Matte's actual projects
 const projects = [
   {
-    title: "Project Alpha",
-    description: "An innovative web application built with Next.js and TypeScript, focusing on real-time collaboration features and performance optimization.",
-    imageUrl: "https://picsum.photos/seed/alpha/600/400",
-    liveUrl: "#",
-    githubUrl: "#",
-    tags: ["Next.js", "TypeScript", "WebSockets", "Tailwind CSS"],
-    aiHint: "abstract tech code dark"
+    title: "Portfolio Website",
+    description: "This personal portfolio website, built with Next.js, Tailwind CSS, and ShadCN UI, showcasing skills, experience, and projects.",
+    imageUrl: "https://picsum.photos/seed/portfolio/600/400",
+    liveUrl: "#", // Add live URL if deployed
+    githubUrl: "https://github.com/revanthmatte/portfolio", // Replace with actual repo
+    tags: ["Next.js", "React", "Tailwind CSS", "ShadCN UI", "TypeScript"],
+    aiHint: "website portfolio dark theme screenshot"
   },
   {
-    title: "Project Beta",
-    description: "A cross-platform mobile app using React Native for tracking personal fitness goals, featuring data sync and visualization.",
-    imageUrl: "https://picsum.photos/seed/beta/600/400",
-    liveUrl: "#",
-    githubUrl: "#",
-    tags: ["React Native", "iOS", "Android", "Firebase"],
-     aiHint: "mobile app ui fitness dark"
+    title: "Cloud Cost Optimizer",
+    description: "A Python tool using AWS SDK (Boto3) to analyze EC2 instance usage and recommend cost-saving strategies like instance resizing or scheduling.",
+    imageUrl: "https://picsum.photos/seed/cloudcost/600/400",
+    liveUrl: null,
+    githubUrl: "https://github.com/revanthmatte/cloud-optimizer", // Replace with actual repo
+    tags: ["Python", "AWS", "Boto3", "Cost Optimization", "CLI"],
+     aiHint: "cloud dashboard graph dark theme"
   },
   {
-    title: "Project Gamma",
-    description: "A data analysis dashboard built with Python (Flask/Pandas) to visualize complex datasets for business intelligence insights.",
-    imageUrl: "https://picsum.photos/seed/gamma/600/400",
-    liveUrl: null, // No live demo for this one
-    githubUrl: "#",
-    tags: ["Python", "Flask", "Pandas", "Plotly"],
-    aiHint: "data chart graph dark theme"
+    title: "Real-time Chat Application",
+    description: "A web application enabling real-time communication using WebSockets, built with Node.js, Express, and Socket.IO on the backend and React on the frontend.",
+    imageUrl: "https://picsum.photos/seed/chat-app/600/400",
+    liveUrl: "#", // Add live URL if deployed
+    githubUrl: "https://github.com/revanthmatte/realtime-chat", // Replace with actual repo
+    tags: ["Node.js", "Express", "React", "WebSockets", "Socket.IO"],
+    aiHint: "chat application interface dark mode"
   },
    {
-    title: "Project Delta",
-    description: "An e-commerce platform backend developed with Node.js and Express, integrated with Stripe for payments.",
-    imageUrl: "https://picsum.photos/seed/delta/600/400",
-    liveUrl: "#",
-    githubUrl: "#",
-    tags: ["Node.js", "Express", "MongoDB", "Stripe API"],
-    aiHint: "server code terminal dark"
+    title: "E-commerce API",
+    description: "A RESTful API backend for an e-commerce platform using Django REST Framework, featuring product management, user authentication, and order processing.",
+    imageUrl: "https://picsum.photos/seed/ecommerce-api/600/400",
+    liveUrl: null,
+    githubUrl: "https://github.com/revanthmatte/ecommerce-api", // Replace with actual repo
+    tags: ["Python", "Django", "Django REST Framework", "PostgreSQL", "API"],
+    aiHint: "api code documentation dark theme"
   },
 ];
 
@@ -55,6 +55,9 @@ export default function ProjectShowcase() {
           <ProjectCard key={index} project={project} />
         ))}
       </div>
+       <p className="text-sm text-muted-foreground text-center mt-4">
+         More projects available on GitHub.
+       </p>
     </div>
   );
 }

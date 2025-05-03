@@ -41,13 +41,13 @@ export interface Experience {
    */
   company: string;
   /**
-   * The start date of the experience.
+   * The start date of the experience. Format: YYYY-MM
    */
   startDate: string;
   /**
-   * The end date of the experience.
+   * The end date of the experience. Format: YYYY-MM
    */
-  endDate?: string;
+  endDate?: string; // Optional for current positions
   /**
    * The description of the experience.
    */
@@ -67,11 +67,11 @@ export interface Education {
    */
   degree: string;
   /**
-   * The start date of the education.
+   * The start date of the education. Format: YYYY-MM
    */
   startDate: string;
   /**
-   * The end date of the education.
+   * The end date of the education. Format: YYYY-MM
    */
   endDate: string;
   /**
@@ -87,28 +87,48 @@ export interface Education {
  * @returns A promise that resolves to a LinkedInProfile object containing profile information.
  */
 export async function getLinkedInProfile(profileUrl: string): Promise<LinkedInProfile> {
-  // TODO: Implement this by calling an API.
+  // TODO: Implement this by calling an actual API or scraping service.
+  // Using dummy data based on user request.
+
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 50)); // Short delay
 
   return {
     fullName: 'Revanth Matte',
-    headline: 'Software Engineer',
-    profilePictureUrl: 'https://media.licdn.com/dms/image/**************/profile-displayphoto-shrink_800_800/0/1664834883827?e=1712188800&v=beta&t=abcdefg',
-    about: 'Experienced software engineer with a passion for building innovative solutions.',
+    headline: 'Software Engineer | Full Stack Developer',
+    // Placeholder image - replace with actual if available
+    profilePictureUrl: 'https://picsum.photos/seed/revanth/200/200',
+    about: 'Dedicated and skilled Software Engineer with experience in full-stack development, cloud technologies, and building scalable applications. Passionate about problem-solving and creating efficient, user-friendly solutions. Seeking challenging opportunities to leverage technical expertise and contribute to innovative projects.',
     experiences: [
       {
         title: 'Software Engineer',
-        company: 'Google',
-        startDate: '2020-01-01',
-        description: 'Developed and maintained high-quality software for Google products.',
+        company: 'Tech Solutions Inc.', // Example Company
+        startDate: '2021-06', // Example Date (YYYY-MM)
+        // endDate: 'Present', // Omit for current position
+        description: 'Developed and maintained key features for a large-scale web application using React, Node.js, and AWS. Collaborated with cross-functional teams to define, design, and ship new functionalities. Improved application performance by optimizing database queries and implementing caching strategies.',
+      },
+      {
+        title: 'Software Development Intern',
+        company: 'Innovatech Labs', // Example Company
+        startDate: '2020-05', // Example Date (YYYY-MM)
+        endDate: '2020-08', // Example Date (YYYY-MM)
+        description: 'Assisted senior engineers in developing backend APIs using Python and Django. Wrote unit tests and participated in code reviews. Gained experience with Agile methodologies and version control systems (Git).',
       },
     ],
     educations: [
       {
-        school: 'Stanford University',
-        degree: 'Master of Science in Computer Science',
-        startDate: '2018-09-01',
-        endDate: '2020-06-01',
-        description: 'GPA: 4.0/4.0',
+        school: 'University of Southern California', // Example University
+        degree: "Master's Degree, Computer Science",
+        startDate: '2019-08', // Example Date (YYYY-MM)
+        endDate: '2021-05', // Example Date (YYYY-MM)
+        description: 'Relevant Coursework: Advanced Algorithms, Distributed Systems, Machine Learning, Database Management. Completed a thesis project on optimizing cloud resource allocation.',
+      },
+      {
+        school: 'State University', // Example University
+        degree: "Bachelor's Degree, Computer Engineering",
+        startDate: '2015-08', // Example Date (YYYY-MM)
+        endDate: '2019-05', // Example Date (YYYY-MM)
+        description: 'Graduated with Honors. Active member of the coding club and participated in several hackathons.',
       },
     ],
   };

@@ -10,6 +10,7 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 
 export default async function Home() {
+  // Update this URL if your LinkedIn profile URL is different
   const linkedInProfileUrl = 'https://www.linkedin.com/in/revanth-matte/';
   let profile: LinkedInProfile | null = null;
   let error: string | null = null;
@@ -22,10 +23,10 @@ export default async function Home() {
     error = 'Failed to load profile data. Please try again later.';
     // Assign dummy data in case of error to prevent build failure,
     profile = {
-      fullName: 'Revanth Matte',
-      headline: 'Software Engineer',
-      profilePictureUrl: 'https://picsum.photos/200/200', // Placeholder image
-      about: 'Error loading profile information.',
+      fullName: 'Revanth Matte', // Updated fallback
+      headline: 'Software Engineer | Full Stack Developer', // Updated fallback
+      profilePictureUrl: 'https://picsum.photos/seed/revanth-error/200/200', // Placeholder image
+      about: 'Error loading profile information. Please check back later.',
       experiences: [],
       educations: [],
     };
@@ -33,9 +34,9 @@ export default async function Home() {
 
   // Ensure profile is not null for rendering, even if error occurred
   const displayProfile = profile || {
-      fullName: 'Revanth Matte',
-      headline: 'Software Engineer',
-      profilePictureUrl: 'https://picsum.photos/200/200',
+      fullName: 'Revanth Matte', // Updated fallback
+      headline: 'Software Engineer | Full Stack Developer', // Updated fallback
+      profilePictureUrl: 'https://picsum.photos/seed/revanth-loading/200/200',
       about: 'Loading profile...',
       experiences: [],
       educations: [],

@@ -6,10 +6,10 @@ import Link from 'next/link';
 export default function ContactSection() {
   // Replace with your actual contact details and resume link
   const contact = {
-    email: "revanth.matte@example.com",
-    linkedin: "https://www.linkedin.com/in/revanth-matte/",
-    github: "https://github.com/yourusername",
-    resumeUrl: "/resume.pdf", // Link to your resume PDF
+    email: "revanth.matte@example.com", // Placeholder Email
+    linkedin: "https://www.linkedin.com/in/revanth-matte/", // Keep or update LinkedIn
+    github: "https://github.com/revanthmatte", // Placeholder GitHub
+    resumeUrl: "/revanth-matte-resume.pdf", // Placeholder link to your resume PDF in public folder
   };
 
   return (
@@ -21,7 +21,7 @@ export default function ContactSection() {
        </div>
       <div className="space-y-4">
           <p className="text-muted-foreground">
-            Feel free to reach out if you'd like to collaborate or just chat!
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out!
           </p>
          <div className="flex flex-wrap gap-4 pt-4">
              <Button asChild variant="outline" className="border-border/50 hover:bg-muted/30 hover:text-foreground">
@@ -41,7 +41,8 @@ export default function ContactSection() {
               </Button>
              {contact.resumeUrl && (
               <Button asChild variant="outline" className="border-border/50 hover:bg-muted/30 hover:text-foreground">
-                 <Link href={contact.resumeUrl} target="_blank" rel="noopener noreferrer" download>
+                 {/* Make sure the resume PDF exists in the /public directory */}
+                 <Link href={contact.resumeUrl} target="_blank" rel="noopener noreferrer" download="Revanth_Matte_Resume.pdf">
                    <FileText className="mr-2 h-4 w-4" /> Resume
                  </Link>
               </Button>
