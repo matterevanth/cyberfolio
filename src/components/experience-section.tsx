@@ -35,22 +35,8 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
 
         {sortedExperiences.length > 0 ? (
           sortedExperiences.map((exp, index) => (
-            <div key={index} className="relative mb-12 md:grid md:grid-cols-2 md:items-start md:gap-x-8"> {/* Use grid for alignment, added gap-x */}
-               {/* Timeline Dot Container: Positions the dot relative to the grid column */}
-               <div className={cn(
-                   "absolute top-2.5 left-1/2 -translate-x-1/2 md:relative md:top-auto md:left-auto md:translate-x-0 md:flex md:justify-center", // Center dot on mobile, use grid for desktop
-                   index % 2 === 0 ? 'md:col-start-1 md:flex-row-reverse' : 'md:col-start-2 md:flex-row' // Place dot container in correct column
-                )}>
-                 {/* The actual Dot: Centered on the line */}
-                 <span className={cn(
-                    "flex h-4 w-4 items-center justify-center rounded-full border-2 border-primary ring-4 ring-background",
-                    // Align dot precisely on the center line for desktop using margin auto
-                    index % 2 === 0 ? 'md:mr-[-8px]' : 'md:ml-[-8px]', // Adjust margin to center 16px dot over 2px line
-                     index === 0 ? "bg-primary" : "bg-muted"
-                  )} aria-hidden="true">
-                     <span className={cn("h-1.5 w-1.5 rounded-full", index === 0 ? "bg-primary-foreground" : "bg-primary")}></span>
-                  </span>
-               </div>
+            <div key={index} className="relative mb-12 md:grid md:grid-cols-2 md:items-start md:gap-x-8">
+               {/* Dot Container Removed */}
 
               {/* Experience Card Container */}
               <div
@@ -60,10 +46,10 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                    index % 2 === 0
                      ? 'md:col-start-2 md:row-start-1' // Card on right
                      : 'md:col-start-1 md:row-start-1', // Card on left
-                   // Mobile layout: margin left to clear absolute positioned dot
-                   "ml-8 md:ml-0",
-                   // Align card text based on side
-                   index % 2 !== 0 ? 'md:text-right' : 'md:text-left'
+                   // Mobile layout: Adjust padding/margin if needed after dot removal
+                   // Assuming the alignment is handled by the grid now, remove ml-8
+                   "md:ml-0", // Ensure no extra margin on desktop
+                   // Ensure card content aligns correctly (handled within ExperienceCard via prop)
                 )}
                  style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'backwards' }}
               >
@@ -73,7 +59,8 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
             </div>
           ))
         ) : (
-           <div className="pl-8"> {/* Indent fallback message relative to timeline */}
+           // Adjust fallback message positioning if needed
+           <div className="pl-8 md:pl-0 md:col-span-2 text-center">
               <p className="text-muted-foreground text-sm">// Experience information loading...</p>
            </div>
         )}
@@ -81,4 +68,5 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
     </div>
   );
 }
+
 
