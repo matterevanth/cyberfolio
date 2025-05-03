@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+// Removed unused Card imports
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink, CalendarDays, ChevronRight } from 'lucide-react'; // Added CalendarDays and ChevronRight
@@ -25,39 +25,45 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   const accordionValue = `project-item-${index}`; // Unique value for each accordion item
 
   return (
-    // Terminal card style: remove rounding, shadow; add border; no hover effect
-    <div className="flex flex-col overflow-hidden bg-card border border-border/50 shadow-none rounded-none">
-       {/* Image container */}
-       <div className="relative h-40 w-full group"> {/* Reduced height */}
+    // Terminal card style: remove rounding, shadow; add border; add transition
+    <div className="flex flex-col overflow-hidden bg-card border border-border/50 shadow-none rounded-none transition-all duration-300 ease-out hover:border-primary/50 hover:shadow-md hover:shadow-primary/10">
+       {/* Image container - Added hover scale effect */}
+       <div className="relative h-40 w-full group overflow-hidden"> {/* Reduced height, added overflow-hidden */}
          <Image
            src={project.imageUrl}
            alt={`${project.title} screenshot`}
            layout="fill"
            objectFit="cover"
            data-ai-hint={project.aiHint || "project technology dark"}
-           className="opacity-80" // Slightly dimmed image
+           className="opacity-80 transition-transform duration-300 ease-out group-hover:scale-105 group-hover:opacity-100" // Scale and brighten on hover
          />
        </div>
 
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value={accordionValue} className="border-none p-0">
             {/* Card Header as Accordion Trigger */}
-            <AccordionTrigger className={cn(
-                "group flex w-full flex-col items-start text-left hover:no-underline p-3 pb-2",
+            <AccordionTrigger
+                disabled={!project.description} // Disable trigger if no description
+                className={cn(
+                "group flex w-full flex-col items-start text-left p-3 pb-2",
+                // Remove default hover effect, apply custom on hover/focus
+                "hover:no-underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/50 rounded-sm",
                 // Remove default padding and chevron
-                 "py-0 [&>svg]:hidden"
+                 "py-0 [&>svg]:hidden",
+                 // Add cursor pointer only if there's content to show
+                project.description ? "cursor-pointer" : "cursor-default"
             )}>
                  {/* Title with Chevron */}
-                <div className="flex items-center w-full justify-between">
-                    <h3 className="text-base font-semibold text-foreground mb-1 mr-2">{project.title}</h3>
+                <div className="flex items-center w-full justify-between transition-colors duration-200 group-hover:text-primary/80">
+                    <h3 className="text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-200 mb-1 mr-2">{project.title}</h3>
                     {/* Chevron Icon for Accordion */}
                     {project.description && (
-                        <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-90 flex-shrink-0" />
+                        <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-90 flex-shrink-0 group-hover:text-primary/80" />
                     )}
                 </div>
                 {/* Date */}
                 {project.date && (
-                     <div className="flex items-center text-xs text-muted-foreground mb-1.5">
+                     <div className="flex items-center text-xs text-muted-foreground mb-1.5 transition-colors duration-200 group-hover:text-foreground/80">
                         <CalendarDays className="mr-1.5 h-3 w-3" />
                         <span>{project.date}</span>
                     </div>
@@ -67,7 +73,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                   <div className="flex flex-wrap gap-1">
                     {project.tags.map((tag, tagIndex) => (
                       // Terminal badge style
-                      <Badge key={tagIndex} variant="secondary" className="badge-terminal text-[10px] leading-tight">
+                      <Badge key={tagIndex} variant="secondary" className="badge-terminal text-[10px] leading-tight transition-all duration-150 hover:scale-105 hover:bg-primary/20">
                         {tag}
                       </Badge>
                     ))}

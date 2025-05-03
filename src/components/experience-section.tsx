@@ -28,8 +28,11 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
   return (
     <div className="space-y-6"> {/* Reduced spacing */}
       <div className="flex items-center gap-2 mb-6"> {/* Reduced bottom margin */}
-         <Briefcase className="h-5 w-5 text-primary" />
-        <h2 className="text-xl font-semibold text-foreground tracking-tight">Work Experience:</h2>
+         <span className="text-primary mr-1 font-mono">$</span> {/* Command prompt style */}
+         <h2 className="text-xl font-semibold text-foreground tracking-tight flex items-center gap-2">
+            <Briefcase className="h-5 w-5 text-primary" />
+            Work Experience:
+        </h2>
       </div>
       {/* Terminal timeline: Use border color, adjust padding/margin */}
       <div className="relative pl-5 border-l border-border/70 ml-2"> {/* Adjusted padding/margin */}
@@ -37,16 +40,19 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           sortedExperiences.map((exp, index) => (
             <div key={index} className="mb-8 last:mb-0"> {/* Spacing between timeline items */}
               {/* Terminal Timeline Dot: Smaller, square-ish, different colors */}
+              {/* Added pulse animation */}
               <span className={cn(
                   "absolute -left-[0.6rem] flex h-4 w-4 items-center justify-center border border-primary ring-2 ring-background", // Smaller, border, ring
                   index === 0 ? "bg-primary" : "bg-muted", // Highlight current/latest job
-                  "rounded-sm animate-pulse duration-1000 delay-100" // Added pulse animation
+                   // Apply pulse animation conditionally or always
+                  "rounded-sm animate-pulse duration-1000 delay-100" // Add pulse animation
               )}>
                  <Briefcase className={cn("h-2 w-2", index === 0 ? "text-primary-foreground": "text-primary")} />
               </span>
 
               {/* Experience Card - Positioned to the right of the line */}
-              <div className="ml-4"> {/* Keep margin */}
+              {/* Added fade-in animation with stagger */}
+              <div className="ml-4 animate-in fade-in slide-in-from-left-4 duration-500 ease-out" style={{ animationDelay: `${index * 100}ms` }}> {/* Keep margin */}
                  {/* Pass index to ExperienceCard */}
                 <ExperienceCard experience={exp} index={index} />
               </div>

@@ -1,7 +1,8 @@
 import ProjectCard from './project-card';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// Removed unused Card imports
 import { Code, FolderGit2 } from 'lucide-react';
 import type { Project } from '@/services/linkedin'; // Import Project type
+import { cn } from '@/lib/utils'; // Import cn for conditional classes
 
 interface ProjectShowcaseProps {
   projects: Project[]; // Accept projects as props
@@ -42,14 +43,20 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   return (
     <div className="space-y-6"> {/* Reduced spacing */}
        <div className="flex items-center gap-2 mb-4"> {/* Reduced spacing */}
-         <FolderGit2 className="h-5 w-5 text-primary" />
-        <h2 className="text-xl font-semibold text-foreground tracking-tight">Projects:</h2>
+         <span className="text-primary mr-1 font-mono">$</span> {/* Command prompt style */}
+         <h2 className="text-xl font-semibold text-foreground tracking-tight flex items-center gap-2">
+            <FolderGit2 className="h-5 w-5 text-primary" />
+            Projects:
+        </h2>
       </div>
       {/* Terminal grid style: reduced gap */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {sortedProjects.length > 0 ? (
              sortedProjects.map((project, index) => (
-              <ProjectCard key={index} project={project} index={index} /> // Pass index here
+               // Added fade-in animation with stagger
+               <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out" style={{ animationDelay: `${index * 100}ms` }}>
+                  <ProjectCard project={project} index={index} /> {/* Pass index here */}
+               </div>
             ))
         ) : (
              <p className="text-muted-foreground text-sm col-span-1 sm:col-span-2">// Project details loading or none available.</p>

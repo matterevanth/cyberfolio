@@ -1,5 +1,5 @@
 import type { Education } from '@/services/linkedin';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// Removed unused Card imports
 import { CalendarDays, School } from 'lucide-react'; // Added School icon
 
 interface EducationCardProps {
@@ -41,7 +41,8 @@ export default function EducationCard({ education }: EducationCardProps) {
 
   return (
     // Terminal card style: transparent bg, border, no shadow, no rounding
-    <div className="bg-transparent border border-border/50 shadow-none rounded-none p-3">
+    // Added hover effect and transition
+    <div className="bg-transparent border border-border/50 shadow-none rounded-none p-3 transition-all duration-200 ease-out hover:border-primary/70 hover:bg-muted/30">
         {/* Degree: Foreground color, slightly larger */}
         <h3 className="text-base font-semibold text-foreground mb-1">{education.degree}</h3>
          {/* School: Primary color */}

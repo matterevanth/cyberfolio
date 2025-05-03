@@ -1,7 +1,8 @@
 import type { Education } from '@/services/linkedin';
 import EducationCard from './education-card';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// Removed unused Card imports
 import { GraduationCap } from 'lucide-react';
+import { cn } from '@/lib/utils'; // Import cn
 
 interface EducationSectionProps {
   educations: Education[];
@@ -20,14 +21,20 @@ export default function EducationSection({ educations }: EducationSectionProps) 
   return (
      <div className="space-y-6"> {/* Reduced spacing */}
       <div className="flex items-center gap-2 mb-4"> {/* Reduced spacing */}
-        <GraduationCap className="h-5 w-5 text-primary" />
-        <h2 className="text-xl font-semibold text-foreground tracking-tight">Education:</h2>
+         <span className="text-primary mr-1 font-mono">$</span> {/* Command prompt style */}
+         <h2 className="text-xl font-semibold text-foreground tracking-tight flex items-center gap-2">
+            <GraduationCap className="h-5 w-5 text-primary" />
+            Education:
+        </h2>
       </div>
       {/* Terminal card list style: reduced gap */}
       <div className="space-y-4">
         {sortedEducations.length > 0 ? (
           sortedEducations.map((edu, index) => (
-            <EducationCard key={index} education={edu} />
+             // Added fade-in animation with stagger
+            <div key={index} className="animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out" style={{ animationDelay: `${index * 100}ms` }}>
+              <EducationCard education={edu} />
+            </div>
           ))
         ) : (
           <p className="text-muted-foreground text-sm">// Education details loading...</p>

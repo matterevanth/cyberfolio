@@ -7,9 +7,10 @@ import ProjectShowcase from '@/components/project-showcase';
 import SkillsSection from '@/components/skills-section';
 import ContactSection from '@/components/contact-section';
 import CertificationsSection from '@/components/certifications-section'; // Import CertificationsSection
-import { Separator } from '@/components/ui/separator';
+// Removed Separator import
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import TerminalDivider from '@/components/terminal-divider'; // Import TerminalDivider
 
 export default async function Home() {
   // Update this URL if your LinkedIn profile URL is different (though data is hardcoded now)
@@ -28,7 +29,7 @@ export default async function Home() {
     // Provide minimal fallback if even hardcoded fails
     profile = {
       fullName: 'Revanth Matte',
-      headline: 'Software Engineer | Cybersecurity',
+      headline: 'Cybersecurity Professional | Ethical Hacker', // Corrected designation
       expertise: [], // Add fallback
       profilePictureUrl: 'https://picsum.photos/seed/revanth-error/200/200',
       about: '// Error loading profile information.',
@@ -50,71 +51,70 @@ export default async function Home() {
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Header />
       {/* Terminal main container: adjusted padding */}
-      <main className="container mx-auto flex-grow max-w-3xl p-4 pt-8 md:p-6 md:pt-10 lg:p-8 lg:pt-12">
+      {/* Added fade-in animation */}
+      <main className="container mx-auto flex-grow max-w-3xl p-4 pt-8 md:p-6 md:pt-10 lg:p-8 lg:pt-12 animate-in fade-in duration-500 ease-out">
         {error && (
           // Terminal error style: Use destructive text color
-          <div className="mb-8 rounded-none border border-destructive p-3 text-destructive text-sm">
+          <div className="mb-8 rounded-none border border-destructive p-3 text-destructive text-sm animate-pulse">
             {error}
           </div>
         )}
 
         {/* Single Column Layout */}
-        {/* Terminal layout: reduced vertical spacing */}
+        {/* Terminal layout: adjusted vertical spacing */}
         <div className="flex flex-col space-y-10 md:space-y-12 lg:space-y-14">
           {/* Profile Section */}
-          <section id="about">
+          <section id="about" className="scroll-mt-16">
              {/* Ensure displayProfile is passed */}
             <ProfileCard profile={displayProfile} />
           </section>
 
-          {/* Contact Section - Moved Here */}
-           <section id="contact">
+          {/* Contact Section - Moved Under Profile */}
+           <section id="contact" className="scroll-mt-16">
              <ContactSection />
            </section>
 
-          {/* Separator: Muted border */}
-          <Separator className="bg-border/50" />
-
-           {/* Expertise Section (Integrated within ProfileCard now) */}
+          {/* Thematic Divider */}
+          <TerminalDivider />
 
            {/* Skills Section */}
-          <section id="skills">
+          <section id="skills" className="scroll-mt-16">
              {/* Ensure displayProfile.skills is passed */}
             <SkillsSection skills={displayProfile.skills} />
           </section>
 
-          {/* Separator: Muted border */}
-          <Separator className="bg-border/50" />
+          {/* Thematic Divider */}
+          <TerminalDivider />
 
           {/* Experience Section */}
-          <section id="experience">
+          <section id="experience" className="scroll-mt-16">
              {/* Ensure displayProfile.experiences is passed */}
             <ExperienceSection experiences={displayProfile.experiences} />
           </section>
 
-          {/* Separator: Muted border */}
-          <Separator className="bg-border/50" />
+          {/* Thematic Divider */}
+          <TerminalDivider />
 
           {/* Project Showcase Section */}
-          <section id="projects">
+          <section id="projects" className="scroll-mt-16">
              {/* Pass projects from profile data */}
              <ProjectShowcase projects={displayProfile.projects} />
           </section>
 
-          {/* Separator: Muted border */}
-          <Separator className="bg-border/50" />
+          {/* Thematic Divider */}
+          <TerminalDivider />
 
           {/* Education Section */}
-           <section id="education">
+           <section id="education" className="scroll-mt-16">
             {/* Ensure displayProfile.educations is passed */}
             <EducationSection educations={displayProfile.educations} />
            </section>
 
-           {/* Separator: Muted border */}
-           <Separator className="bg-border/50" />
+           {/* Thematic Divider */}
+           <TerminalDivider />
 
             {/* Certifications Section */}
-           <section id="certifications">
+           <section id="certifications" className="scroll-mt-16">
              {/* Ensure displayProfile.certifications is passed */}
             <CertificationsSection certifications={displayProfile.certifications} />
            </section>
@@ -126,5 +126,3 @@ export default async function Home() {
     </div>
   );
 }
-
-    

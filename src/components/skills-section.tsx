@@ -1,8 +1,9 @@
 import type { Skills } from '@/services/linkedin';
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// Removed unused Card imports
 import { Wrench, ShieldCheck, Code, Cloud, Terminal, Languages, Cog /*Fallback*/ } from 'lucide-react'; // Added more relevant icons
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface SkillsSectionProps {
   skills: Skills;
@@ -39,15 +40,19 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
   return (
     <div className="space-y-6"> {/* Reduced spacing */}
       <div className="flex items-center gap-2 mb-4"> {/* Reduced spacing */}
-        <Cog className="h-5 w-5 text-primary" /> {/* Section Icon */}
-        <h2 className="text-xl font-semibold text-foreground tracking-tight">Skills & Expertise:</h2>
+         <span className="text-primary mr-1 font-mono">$</span> {/* Command prompt style */}
+         <h2 className="text-xl font-semibold text-foreground tracking-tight flex items-center gap-2">
+            <Cog className="h-5 w-5 text-primary" /> {/* Section Icon */}
+            Skills & Expertise:
+        </h2>
       </div>
       {/* Grid for skills */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> {/* Reduced gap */}
         {skillCategories.map(([categoryKey, skillList]) => (
           skillList && skillList.length > 0 && (
             // Terminal card style: no bg, border, no shadow, sharp corners
-            <div key={categoryKey} className="border border-border/50 p-3 rounded-none">
+            // Added hover effect and transition
+            <div key={categoryKey} className="border border-border/50 p-3 rounded-none transition-all duration-200 ease-out hover:border-primary/70 hover:bg-muted/30">
                <div className="flex items-center space-x-2 mb-2">
                   {getCategoryIcon(categoryKey)}
                   <h3 className="text-sm font-medium text-foreground">{categoryDisplayNames[categoryKey]}</h3>
@@ -58,7 +63,8 @@ export default function SkillsSection({ skills }: SkillsSectionProps) {
                       key={index}
                       variant="secondary"
                       // Terminal badge style
-                      className="badge-terminal text-xs"
+                      // Added hover effect
+                      className="badge-terminal text-xs transition-all duration-150 hover:scale-105 hover:bg-primary/20"
                     >
                       {skill}
                     </Badge>
